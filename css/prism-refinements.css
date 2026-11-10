@@ -1,0 +1,130 @@
+/* Prism Travels | 2026 design refinements. Loaded AFTER css/styles.css. */
+
+/* 1 + 2: Brandline and navigation, with a restrained underline treatment. */
+:root { --header-h: 98px; }
+.topbar__inner { justify-content: center; }
+.header__inner { gap: 18px; }
+.site-header .brand { min-width: 255px; gap: 11px; flex-shrink: 0; }
+.site-header .brand__mark { width: 57px; height: 64px; object-fit: contain; background: transparent; }
+.site-header .brand__text { gap: 5px; }
+.site-header .brand__name { font-size: 1.42rem; }
+.site-header .brand__tagline {
+  display: block; color: #1b6995; font-size: .84rem; font-weight: 800;
+  letter-spacing: .035em; line-height: 1.2; white-space: nowrap;
+}
+.main-nav { gap: clamp(12px, 1.65vw, 25px); }
+.site-header .main-nav a:not(.button) {
+  position: relative; display: inline-flex; align-items: center; isolation: isolate;
+  padding: 13px 2px 16px; font-size: .88rem; font-weight: 800;
+  letter-spacing: .012em; color: #263b50;
+  transition: color .24s ease, transform .24s ease;
+}
+.site-header .main-nav a:not(.button)::after {
+  content: ''; position: absolute; bottom: 7px; left: 2px; right: 2px;
+  height: 2.5px; background: linear-gradient(90deg, #197caf, #78cbd8);
+  border-radius: 2px; transform: scaleX(0); transform-origin: left;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1);
+}
+.site-header .main-nav a:not(.button):hover,
+.site-header .main-nav a:not(.button):focus-visible,
+.site-header .main-nav a[aria-current="page"] { color: #086d9e; }
+.site-header .main-nav a:not(.button):hover::after,
+.site-header .main-nav a:not(.button):focus-visible::after,
+.site-header .main-nav a[aria-current="page"]::after { transform: scaleX(1); }
+.site-header .main-nav a:not(.button):hover { transform: translateY(-1px); }
+.site-header .nav-cta { border-radius: 8px; box-shadow: 0 5px 18px rgba(27,116,157,.12); }
+
+/* 3: Service photography. The original copy, icons and links stay in place. */
+.service-card { overflow: hidden; padding: 0 0 27px; border-radius: 12px; }
+.service-card__media { width: 100%; height: 174px; overflow: hidden; background: #dce8ee; }
+.service-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .55s ease; }
+.service-card:hover .service-card__media img { transform: scale(1.055); }
+.service-card__icon { margin: 21px 26px 16px; width: 43px; height: 43px; font-size: 1.32rem; flex-shrink: 0; }
+.service-card h3 { margin: 0 26px 11px; font-size: 1.08rem; }
+.service-card p { margin: 0 26px 20px; }
+.service-card .text-link { margin: auto 26px 0; }
+
+/* 5: About > Our Work. A warm neutral section separates the blues. */
+.prism-work-section {
+  background: linear-gradient(145deg, #faf9f5 0%, #f1f5f5 56%, #eef5f8 100%);
+  color: #102c45; border-top: 1px solid #e5e4de; border-bottom: 1px solid #d7e6e9;
+}
+.prism-work-section .eyebrow { color: #1680a9; }
+.prism-work-section .heading h2 { color: #0a2944; }
+.prism-work-section .heading p { color: #576f7b; }
+.prism-work-section .number-card { border-color: #b9cfd9; }
+.prism-work-section .number-card__num { color: #1386b2; }
+.prism-work-section .number-card h3 { color: #16354a; }
+.prism-work-section .number-card p { color: #5a6e7b; }
+
+/* 6: All existing Prism marks are used on transparent backgrounds. */
+.brand__mark, .site-footer .brand__mark { background: transparent !important; box-shadow: none !important; }
+.site-footer .brand__tagline { display: none; }
+.site-footer .footer-tagline { font-size: .94rem; color: #bce6f5; letter-spacing: .025em; }
+
+/* 7: An on-site enquiry modal that hosts the ORIGINAL working Google Form. */
+.prism-enquiry-dialog {
+  position: fixed; inset: 0; margin: auto; width: min(96vw, 820px);
+  max-height: min(92dvh, 950px); padding: 0; overflow: hidden;
+  border: 1px solid #d6e4ed; border-radius: 18px; color: #142f47;
+  background: #f9fbfc; box-shadow: 0 30px 100px rgba(0,22,43,.34);
+}
+.prism-enquiry-dialog::backdrop { background: rgba(3,20,42,.73); backdrop-filter: blur(5px); }
+.prism-enquiry-dialog__shell { display: flex; flex-direction: column; max-height: min(92dvh,950px); }
+.prism-enquiry-dialog__header {
+  padding: 22px 25px 18px; background: linear-gradient(115deg,#092b4c,#135778);
+  color: #fff; display: flex; align-items: flex-start; gap: 15px; justify-content: space-between;
+}
+.prism-enquiry-dialog__eyebrow { color: #9cdef1; font-size: .68rem; font-weight: 800; letter-spacing: .17em; text-transform: uppercase; }
+.prism-enquiry-dialog__header h2 { font-size: clamp(1.2rem, 2.5vw, 1.7rem); margin: 4px 0 0; letter-spacing: -.025em; }
+.prism-enquiry-dialog__close {
+  flex: 0 0 auto; display: grid; place-items: center; width: 38px; height: 38px;
+  border: 1px solid #ffffff77; border-radius: 50%; font-size: 1.5rem;
+  color: #fff; background: #ffffff13; line-height: 1;
+}
+.prism-enquiry-dialog__close:hover { background: #ffffff2b; }
+.prism-enquiry-dialog__frame { display: block; width: 100%; height: min(67dvh, 680px); background: #fff; border: 0; }
+.prism-enquiry-dialog__footer {
+  padding: 12px 22px 14px; background: #f4f8fa; border-top: 1px solid #dbe6eb;
+  display: flex; justify-content: space-between; gap: 15px; align-items: center;
+}
+.prism-enquiry-dialog__footer p { font-size: .74rem; line-height: 1.45; margin: 0; }
+.prism-enquiry-dialog__footer a { color: #0d6c9b; text-decoration: underline; font-size: .78rem; font-weight: 800; white-space: nowrap; }
+body.prism-modal-open { overflow: hidden; }
+@media (max-width: 1100px) and (min-width: 861px) {
+  .site-header .brand { min-width: 240px; gap: 8px; }
+  .site-header .brand__mark { width: 49px; height: 57px; }
+  .site-header .brand__name { font-size: 1.25rem; }
+  .site-header .brand__tagline { font-size: .7rem; }
+  .main-nav { gap: 12px; }
+  .site-header .main-nav a:not(.button) { font-size: .78rem; }
+  .site-header .nav-cta { padding: 11px 12px!important; }
+}
+@media (max-width: 860px) {
+  :root { --header-h: 82px; }
+  .site-header .brand { min-width: 0; }
+  .site-header .brand__mark { width: 49px; height: 56px; }
+  .site-header .brand__name { font-size: 1.23rem; }
+  .site-header .brand__tagline { font-size: .72rem; }
+  .site-header .main-nav a:not(.button) { display: block; padding: 14px 0; font-size: .95rem; transform: none; }
+  .site-header .main-nav a:not(.button)::after { bottom: 0; left: 0; right: auto; width: 45px; }
+  .site-header .main-nav a:not(.button):hover { transform: none; }
+}
+@media (max-width: 560px) {
+  :root { --header-h: 76px; }
+  .topbar { font-size: .53rem; }
+  .site-header .brand__mark { width: 43px; height: 51px; }
+  .site-header .brand__name { font-size: 1.15rem; }
+  .site-header .brand__sub { font-size: .48rem; }
+  .site-header .brand__tagline { font-size: .66rem; }
+  .service-card__media { height: 195px; }
+  .prism-enquiry-dialog { width: 98vw; max-height: 96dvh; border-radius: 12px; }
+  .prism-enquiry-dialog__shell { max-height: 96dvh; }
+  .prism-enquiry-dialog__header { padding: 15px 16px; }
+  .prism-enquiry-dialog__frame { height: 72dvh; }
+  .prism-enquiry-dialog__footer { padding: 9px 14px; flex-direction: column; align-items: flex-start; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .main-nav a:not(.button), .site-header .main-nav a:not(.button)::after,
+  .service-card__media img { transition: none!important; }
+}
