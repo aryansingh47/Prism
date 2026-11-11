@@ -1,0 +1,64 @@
+/* Prism Travels 2026: six-photo landing-page carousel, layered over the original hero. */
+.hero__photo { background-image: none; transform: none; background-color: #123955; overflow: hidden; }
+.hero__slide {
+  position: absolute; inset: 0; opacity: 0;
+  background-size: cover; background-position: center center;
+  transform: scale(1.055);
+  transition: opacity 1100ms ease, transform 7300ms ease;
+  will-change: opacity;
+}
+.hero__slide.is-active { opacity: 1; transform: scale(1); }
+/* Each photo has a bundled illustration behind it for network-failure fallback. */
+.hero__slide--alps { background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2100&q=85'), url('../assets/landscape-fallback.svg'); }
+.hero__slide--rajasthan { background-image: url('https://images.unsplash.com/photo-1757310062384-d3bcfe3026e8?auto=format&fit=crop&w=2100&q=85'), url('../assets/landscape-fallback.svg'); }
+.hero__slide--maldives { background-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=2100&q=85'), url('../assets/landscape-fallback.svg'); }
+.hero__slide--istanbul { background-image: url('https://images.unsplash.com/photo-1678193458179-583ad59525dc?auto=format&fit=crop&w=2100&q=85'), url('../assets/landscape-fallback.svg'); }
+.hero__slide--capetown { background-image: url('https://images.unsplash.com/photo-1644102723416-e72dc2da0525?auto=format&fit=crop&w=2100&q=85'), url('../assets/landscape-fallback.svg'); }
+.hero__slide--vegas { background-image: url('https://images.unsplash.com/photo-1623107935331-7164fb0d6978?auto=format&fit=crop&w=2100&q=85'), url('../assets/landscape-fallback.svg'); }
+/* Keep the existing headline legible over different scenes. */
+.hero__photo::after {
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(3,20,40,.90) 0%, rgba(3,25,50,.75) 43%, rgba(3,31,55,.25) 100%),
+              linear-gradient(0deg, rgba(3,19,38,.48), transparent 42%);
+}
+.hero__bottom { z-index: 3; }
+.hero__content { z-index: 1; position: relative; }
+.hero__carousel-controls {
+  display: flex; align-items: center; gap: 11px; font-size: .7rem;
+  letter-spacing: .04em; text-transform: none;
+}
+.hero__bottom-right.hero__carousel-controls::after { display: none; }
+.hero__slide-arrow {
+  appearance: none; border: 1px solid rgba(255,255,255,.46); color: #fff;
+  background: rgba(255,255,255,.08); width: 34px; height: 34px; flex-shrink: 0;
+  border-radius: 50%; display: inline-grid; place-items: center;
+  cursor: pointer; font: inherit; font-size: 1.15rem;
+  transition: background .2s ease, border-color .2s ease;
+}
+.hero__slide-arrow:hover { border-color: white; background: rgba(255,255,255,.22); }
+.hero__slide-arrow:focus-visible, .hero__dot:focus-visible { outline: 2px solid #ffcb82; outline-offset: 4px; }
+.hero__dots { display: flex; align-items: center; gap: 8px; }
+.hero__dot {
+  appearance: none; border: none; background: rgba(255,255,255,.48);
+  height: 7px; width: 7px; border-radius: 20px; padding: 0;
+  cursor: pointer; transition: width .25s ease, background .25s ease;
+}
+.hero__dot.is-active { width: 23px; background: #fff; }
+.hero__slide-number { white-space: nowrap; color: #e4f2fa; font-size: .72rem; font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) {
+  .hero__bottom-inner { gap: 10px; }
+  .hero__carousel-controls { gap: 8px; }
+  .hero__dots { gap: 5px; }
+}
+@media (max-width: 560px) {
+  .hero__bottom-inner { flex-direction: column; align-items: flex-start; padding-block: 13px; min-height: 106px; gap: 9px; }
+  .hero__bottom-right.hero__carousel-controls { display: flex; }
+  .hero__slide-arrow { width: 29px; height: 29px; }
+  .hero__slide-number { font-size: .65rem; }
+  .hero__photo::after { background: linear-gradient(90deg, rgba(3,20,40,.88), rgba(3,27,52,.48)), linear-gradient(0deg,rgba(3,20,42,.52),transparent 65%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide { transition: none; transform: none; }
+  .hero__slide.is-active { transform: none; }
+  .hero__dot, .hero__slide-arrow { transition: none; }
+}
