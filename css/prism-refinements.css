@@ -128,3 +128,6 @@ body.prism-modal-open { overflow: hidden; }
   .site-header .main-nav a:not(.button), .site-header .main-nav a:not(.button)::after,
   .service-card__media img { transition: none!important; }
 }
+
+/* Principal business address in Contact: normal address typography. */
+.contact-points__address address { font-style: normal; display: block; color: #547187; line-height: 1.72; margin-top: 4px; }
