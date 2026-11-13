@@ -23,7 +23,7 @@
     document.addEventListener('click', (event) => {
       if (!menu.contains(event.target) && !menuButton.contains(event.target)) setMenu(false);
     });
-    window.addEventListener('resize', () => { if (window.innerWidth > 1150) setMenu(false); });
+    window.addEventListener('resize', () => { if (window.innerWidth > 1050) setMenu(false); });
   }
 
   // Subtle sticky header treatment and scroll-to-top control
