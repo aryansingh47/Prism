@@ -1,0 +1,13 @@
+{
+  "name": "prism-travels/website",
+  "description": "Prism Travels first-party enquiry and account features",
+  "type": "project",
+  "require": {
+    "php": "^8.1",
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "ext-mbstring": "*",
+    "ext-openssl": "*",
+    "phpmailer/phpmailer": "^6.9"
+  }
+}

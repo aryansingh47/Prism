@@ -1,0 +1,76 @@
+/* Prism Travels · 2026 customer enquiries, brand, access and office details */
+.site-header .brand__mark,.site-footer .brand__mark{height:63px;width:59px;object-fit:contain;object-position:center;background:transparent!important;filter:none!important}
+.site-footer .brand__mark{height:70px;width:66px}
+.site-header .brand{min-width:239px}
+.site-header .brand__tagline{font-size:.76rem}
+.prism-account-nav{font-size:.78rem!important;color:#166d94!important;font-weight:850!important;white-space:nowrap;letter-spacing:-.01em}
+.prism-account-nav::after{background:linear-gradient(90deg,#e47e25,#fec07a)!important}
+.prism-footer-office{font-style:normal;font-size:.78rem!important;color:#bfd5e5!important;margin-top:20px;margin-bottom:18px;line-height:1.62}
+.prism-footer-office strong{font-weight:850;color:#fff}
+.prism-form-card{background:#fcfcfa;border:1px solid #e1e5e2;border-radius:13px;padding:34px;box-shadow:0 16px 60px rgba(9,42,66,.06)}
+.prism-form-card h3{font-size:clamp(1.45rem,2.1vw,2rem);color:#0d2f49;margin:12px 0}
+.prism-form-card>p{font-size:.9rem;line-height:1.7;color:#61727d}
+.prism-form-section-heading{display:flex;align-items:center;gap:12px;border-bottom:1px solid #dfe7e7;padding:23px 0 12px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.11em;font-size:.77rem;color:#173a51}
+.prism-form-section-heading span{background:#eaf3f6;border-radius:50%;height:31px;width:31px;display:grid;place-items:center;font-weight:850;color:#167ca7;letter-spacing:0}
+.prism-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 17px}
+.prism-field{min-width:0;display:flex;flex-direction:column;gap:6px;margin-bottom:19px}
+.prism-field--full{grid-column:span 2}
+.prism-field label{font-size:.72rem;line-height:1.6;color:#244755;font-weight:800;text-transform:uppercase;letter-spacing:.065em}
+.prism-field label em,.prism-consent em{font-style:normal;color:#b95126}
+.prism-field label span{font-weight:550;text-transform:none;letter-spacing:0;color:#839299}
+.prism-field input,.prism-field select,.prism-field textarea,.prism-staff-status select{width:100%;min-width:0;border:1px solid #cfdcdd;border-radius:5px;background:#fff;color:#17344c;padding:12px 13px;line-height:1.5;min-height:47px;transition:border-color .2s,box-shadow .2s}
+.prism-field input:focus,.prism-field select:focus,.prism-field textarea:focus,.prism-staff-status select:focus{outline:2px solid #7fbfd8;outline-offset:1px;border-color:#1988b5}
+.prism-field textarea{resize:vertical;min-height:120px}
+.prism-field input::placeholder,.prism-field textarea::placeholder{color:#879aa3}
+.prism-checkline{margin-top:-7px}
+.prism-checkline label{display:flex;align-items:center;gap:9px;text-transform:none;letter-spacing:0;font-size:.84rem;font-weight:600}
+.prism-checkline input{width:auto;min-height:0;height:16px;accent-color:#137da9}
+.prism-consent{display:flex;align-items:flex-start;gap:11px;margin:18px 0 15px;color:#506b7a;font-size:.83rem;line-height:1.65;cursor:pointer}
+.prism-consent input{margin-top:4px;accent-color:#147aa6}
+.prism-consent a{color:#0b729e;text-decoration:underline;text-underline-offset:3px}
+.prism-form-alert{font-size:.88rem;font-weight:700;border-radius:6px;margin:12px 0;min-height:0;line-height:1.65;color:#315b71}
+.prism-form-alert.is-error{background:#fff1ed;border:1px solid #efcec7;color:#a03218;padding:12px 14px}
+.prism-form-alert.is-success{background:#e9f6ee;border:1px solid #a7d4b7;color:#195c39;padding:12px 14px}
+.prism-submit{width:100%;min-height:52px;font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;border-radius:5px}
+.prism-submit:disabled{cursor:wait;opacity:.6;transform:none;box-shadow:none}
+.prism-form-fineprint{font-size:.74rem!important;color:#819198!important;margin:14px 0 0!important}
+.prism-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.prism-account-hero{padding:80px 0;background:linear-gradient(125deg,#e9f2f5,#f9faf9 67%,#f7efe6)}
+.prism-account-hero h1{font-size:clamp(2.6rem,4.8vw,4.8rem);color:#102e47;margin:0 0 16px}
+.prism-account-hero p{font-size:1.09rem;max-width:600px}
+.prism-account-section{background:#fff}
+.prism-account-shell{display:grid;grid-template-columns:.85fr 1fr;gap:clamp(28px,6vw,90px);align-items:start}
+.prism-account-intro h2{font-size:clamp(2rem,3.6vw,3.5rem)}
+.prism-account-intro .button{margin-top:18px}
+.prism-muted-note{margin-top:20px;font-size:.84rem}
+.prism-auth-card,.prism-staff-card{padding:clamp(22px,4vw,42px);border:1px solid #dbe4e7;border-radius:12px;box-shadow:0 20px 65px rgba(4,39,61,.07);background:#fff;max-width:100%}
+.prism-auth-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #dce5eb;gap:3px;margin-bottom:28px}
+.prism-auth-tabs button{padding:12px 10px;border:0;border-bottom:3px solid transparent;background:transparent;font-weight:800;color:#627c8f}
+.prism-auth-tabs button.is-active{color:#126e9e;border-color:#168cb4}
+.prism-auth-form h3{font-size:1.5rem;margin-bottom:7px}
+.prism-auth-form>p{font-size:.9rem}
+.prism-auth-form[hidden],#prism-account-dashboard[hidden],.prism-auth-tabs[hidden],[data-staff-link][hidden]{display:none!important}
+.prism-link-button{display:inline-block;background:none;border:0;padding:10px 0;color:#1275a2;text-decoration:underline;text-underline-offset:4px;font-weight:750;font-size:.84rem}
+.prism-account-actions{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:25px}
+.prism-history-card{padding:16px 18px;background:#f6fafc;border:1px solid #dfe8ec;border-radius:8px;margin:10px 0}
+.prism-history-card strong{color:#144666}
+.prism-history-card p{margin:5px 0}
+.prism-history-card small{color:#718a9b}
+.prism-staff-tools{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:23px}
+.prism-staff-enquiry{border:1px solid #dce6ea;border-radius:10px;padding:22px;background:#fbfcfd;margin:16px 0;overflow-wrap:anywhere}
+.prism-staff-enquiry__head{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #e5ecf1;padding-bottom:12px;margin-bottom:13px}
+.prism-staff-enquiry p{margin:6px 0;font-size:.86rem}
+.prism-staff-enquiry b{color:#22485f}
+.prism-staff-status{margin-top:20px;display:flex;align-items:center;gap:15px}
+.prism-staff-status select{max-width:200px}
+@media (min-width:861px) and (max-width:1150px){
+  .header__inner{position:relative}
+  .menu-toggle{display:inline-flex}
+  .main-nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;box-shadow:0 20px 30px rgba(5,31,55,.14);border-top:1px solid #e6edf2;z-index:200;padding:20px 28px;flex-direction:column;align-items:stretch;gap:0}
+  .main-nav.is-open{display:flex}
+  .main-nav a{padding:13px 4px!important;font-size:.94rem!important}
+  .main-nav a.button{margin-top:10px}
+}
+@media(max-width:900px){.prism-account-shell{grid-template-columns:1fr;gap:36px}.prism-account-intro{max-width:650px}}
+@media(max-width:600px){.site-header .brand__mark{height:54px;width:50px}.site-footer .brand__mark{height:60px;width:56px}.prism-form-card{padding:21px 17px}.prism-form-grid{grid-template-columns:1fr}.prism-field--full{grid-column:auto}.prism-account-hero{padding:54px 0}.prism-auth-card{padding:23px 18px}.prism-staff-enquiry__head{flex-direction:column;align-items:start}}
+@media(prefers-reduced-motion:reduce){.prism-field input,.prism-field select{transition:none}}
