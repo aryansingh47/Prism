@@ -227,8 +227,32 @@
     if (event.type === 'session.closed') {
       stopVoice('Session ended. You can continue by text.'); return;
     }
+    if (event.type === 'session.delegation.created') {
+      // Package research now uses managed Responses delegation, not an
+      // unimplemented browser-side client delegation loop.
+      const target = event.delegation?.target || event.target;
+      setStatus(target === 'responses'
+        ? 'SIA is reviewing Prism’s published package information…'
+        : 'Voice research is not configured. Please use text chat for package details.',
+        target === 'responses' ? 'live' : 'error');
+      return;
+    }
+    if (event.type === 'response.event') {
+      const nested = event.event || {};
+      if (nested.type === 'response.failed' || nested.type === 'response.incomplete') {
+        setStatus('Package research could not finish. Please ask again or switch to text chat.', 'error');
+      }
+      if (nested.type === 'response.completed') {
+        setStatus('Package research completed — SIA will respond shortly.', 'live');
+      }
+      return;
+    }
     if (event.type === 'error') {
-      setStatus('SIA reported a connection error. Try again if the issue persists.', 'error'); return;
+      const code = event.error?.code || '';
+      const message = code === 'responses_validation_failed'
+        ? 'SIA’s package research model is unavailable or misconfigured. Please use text chat.'
+        : 'SIA reported a voice connection error. Please retry or use text chat.';
+      setStatus(message, 'error'); return;
     }
     // Transcript names may evolve across Live model revisions; captions are best effort.
     const speaker = event.type === 'session.input_transcript.delta' ? 'You' :

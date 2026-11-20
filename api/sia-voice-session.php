@@ -70,7 +70,18 @@ if (is_file($knowledgeFile)) {
 $session = [
     'session' => [
         'model' => (string)($voiceConfig['openai_voice_model'] ?? 'gpt-live-1.1'),
-        'instructions' => $instructions,
+        'instructions' => $instructions . ' When a customer asks for package details or comparisons, delegate the factual answer to the Responses backend. Never claim to check live pricing or availability. Do not repeatedly say you are checking; share the backend answer as soon as it arrives.',
+        // Without this setting GPT-Live defaults to client delegation; the
+        // website has no client-delegation handler, so those tasks stall.
+        'delegation' => [
+            'type' => 'responses',
+            'responses' => [
+                'model' => (string)($voiceConfig['openai_model'] ?? 'gpt-6.1-terra'),
+                'instructions' => $instructions . "\n\nAnswer package questions using only the approved Prism package facts above. Do not pretend to perform external lookups. Do not invent daily itineraries, hotel confirmation, live availability, or prices. If details are absent, say so and direct the caller to the package page or a Prism travel consultant. Keep results conversational and concise.",
+                'tool_choice' => 'none',
+                'max_output_tokens' => 1200,
+            ],
+        ],
         'audio' => ['output' => ['voice' => 'marin']],
     ],
     'transport' => ['type' => 'webrtc', 'sdp' => $sdp],
