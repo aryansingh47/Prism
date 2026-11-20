@@ -36,12 +36,12 @@ function porter_config(): array
         'notification_email' => getenv('PORTER_NOTIFICATION_EMAIL') ?: 'hello@tripbyprism.co.in',
         'from_email' => getenv('PORTER_FROM_EMAIL') ?: 'noreply@tripbyprism.co.in',
         'from_name' => getenv('PORTER_FROM_NAME') ?: 'Porter by Prism',
-        'enquiry_storage' => __DIR__ . '/../storage/porter-enquiries.jsonl',
+        'enquiry_storage' => __DIR__ . '/porter-enquiries.jsonl',
         'allow_fallback_without_ai' => true,
         'max_history_messages' => 12,
     ];
 
-    $file = __DIR__ . '/../setup/porter-config.php';
+    $file = __DIR__ . '/prism-private/porter-config.php';
     if (is_file($file)) {
         $fromFile = require $file;
         if (is_array($fromFile)) {
