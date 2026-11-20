@@ -1,11 +1,12 @@
 <?php
 /**
  * SIA Voice pilot: authenticated Hostinger PHP -> OpenAI GPT-Live WebRTC.
- * This is deliberately NOT a monthly usage cap. Never enable for general users
- * until server-owned session termination and persistent quotas are deployed.
+ * This is deliberately NOT a monthly usage cap. Session-start limits reduce
+ * abuse, but cannot enforce monthly time quotas or remotely terminate calls.
  */
 declare(strict_types=1);
 require __DIR__ . '/_bootstrap.php';
+require __DIR__ . '/sia-voice-rate.php';
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     fail(405, 'Method not allowed.', 'METHOD_NOT_ALLOWED');
@@ -20,12 +21,10 @@ if (!is_file($privateFile)) {
 }
 $voiceConfig = require $privateFile;
 if (!is_array($voiceConfig) || empty($voiceConfig['voice_pilot_enabled'])) {
-    fail(503, 'SIA Voice pilot is currently unavailable.', 'VOICE_DISABLED');
+    fail(503, 'SIA Voice is currently unavailable.', 'VOICE_DISABLED');
 }
-$allowed = array_values(array_filter(array_map('strtolower', $voiceConfig['voice_pilot_emails'] ?? []), 'strlen'));
-if (!$allowed || !in_array(strtolower((string)$user['email']), $allowed, true)) {
-    fail(403, 'SIA Voice pilot is currently available to selected verified accounts only.', 'VOICE_NOT_INVITED');
-}
+// Any signed-in, email-verified Prism member can use SIA Voice.
+// require_user() above enforces that rule server-side.
 $apiKey = trim((string)($voiceConfig['openai_voice_api_key'] ?? $voiceConfig['openai_api_key'] ?? ''));
 if ($apiKey === '' || !function_exists('curl_init')) {
     fail(503, 'SIA Voice is not configured for live calls yet.', 'VOICE_CONFIG');
@@ -35,9 +34,11 @@ $sdp = $data['sdp'] ?? null;
 if (!is_string($sdp) || strlen($sdp) > 22000 || strlen($sdp) < 40 || !preg_match('/^v=0\r?\n/', $sdp)) {
     fail(422, 'Invalid WebRTC offer.', 'INVALID_OFFER');
 }
-// Prevent repeated session-start abuse. These limits DO NOT limit active call duration.
-rate_limit('sia-voice-starts-hour', (string)$user['id'], 3, 3600);
-rate_limit('sia-voice-starts-day', (string)$user['id'], 8, 86400);
+// A new start budget avoids retaining earlier pilot's 3/hour lockouts.
+// Caps are configurable privately; keep them conservative while monthly quotas are absent.
+$startsPerHour = min(12, max(1, (int)($voiceConfig['voice_starts_per_hour'] ?? 8)));
+$startsPerDay = min(30, max($startsPerHour, (int)($voiceConfig['voice_starts_per_day'] ?? 20)));
+$startKeys = sia_voice_reserve_start((int)$user['id'], $startsPerHour, $startsPerDay);
 
 $brand = 'SIA, the voice travel assistant for Prism Travels, a travel agency in India.';
 $instructions = $brand . " Speak warmly, naturally and concisely in the customer's language (English, Hindi or Hinglish). "
@@ -98,6 +99,8 @@ curl_close($handle);
 if (!is_string($raw) || $raw === '' || $status < 200 || $status >= 300) {
     // Avoid returning provider internals, tokens, keys or user data to the browser.
     error_log('SIA Voice provider connection error status=' . $status . ' network=' . ($curlError !== '' ? 'yes' : 'no'));
+    // Refund deterministic rejections, but keep 429/5xx counted to avoid retry storms.
+    if (in_array($status, [400, 401, 403, 404, 422], true)) sia_voice_refund_rejected_start($startKeys);
     if ($status === 401 || $status === 403) fail(502, 'SIA Voice authentication is unavailable. Contact Prism.', 'VOICE_PROVIDER_AUTH');
     if ($status === 429) fail(503, 'SIA Voice has reached a provider usage limit. Try again later.', 'VOICE_PROVIDER_LIMIT');
     fail(502, 'Unable to establish a voice call right now.', 'VOICE_PROVIDER');
@@ -111,5 +114,5 @@ if (!is_string($answer) || !str_starts_with($answer, 'v=0')) {
 okay([
     'sdp' => $answer,
     'session_id' => (string)($result['session']['id'] ?? ''),
-    'notice' => 'Voice preview: no enforceable monthly time quota is active.',
+    'notice' => 'SIA Voice does not yet have a server-enforced monthly time allowance.',
 ]);
