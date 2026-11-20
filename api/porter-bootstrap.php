@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// Shared security and configuration functions for Porter v2.
+// Shared security and configuration functions for SIA v2.
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 
@@ -56,9 +56,9 @@ function porter_knowledge(): array {
     return $knowledge;
 }
 function porter_validate_request(): array {
-    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') porter_fail(405, 'METHOD_NOT_ALLOWED', 'Please use the Porter chat interface.');
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') porter_fail(405, 'METHOD_NOT_ALLOWED', 'Please use the SIA chat interface.');
     if (!str_starts_with(strtolower((string)($_SERVER['CONTENT_TYPE'] ?? '')), 'application/json')) {
-        porter_fail(415, 'CONTENT_TYPE', 'Porter accepts JSON requests only.');
+        porter_fail(415, 'CONTENT_TYPE', 'SIA accepts JSON requests only.');
     }
     $length = (int)($_SERVER['CONTENT_LENGTH'] ?? 0);
     if ($length > 16000) porter_fail(413, 'REQUEST_TOO_LARGE', 'Please keep your messages concise.');
@@ -80,18 +80,18 @@ function porter_limit(): void {
     $limit = max(1, min(120, (int)($settings['rate_limit_per_10min'] ?? 15)));
     $directory = porter_private_dir() . '/porter-rate-limits';
     if (!is_dir($directory) && !@mkdir($directory, 0700, true) && !is_dir($directory)) {
-        error_log('Porter: unable to create private rate-limit directory');
-        porter_fail(503, 'SECURITY_STORAGE', 'Porter is temporarily unavailable. Please contact Prism.');
+        error_log('SIA: unable to create private rate-limit directory');
+        porter_fail(503, 'SECURITY_STORAGE', 'SIA is temporarily unavailable. Please contact Prism.');
     }
     $remote = substr((string)($_SERVER['REMOTE_ADDR'] ?? 'unknown'), 0, 72);
     $secret = (string)($settings['rate_secret'] ?? $settings['openai_api_key'] ?? '');
-    if (strlen($secret) < 20) porter_fail(503, 'NOT_CONFIGURED', 'Porter has not been connected to OpenAI yet.');
+    if (strlen($secret) < 20) porter_fail(503, 'NOT_CONFIGURED', 'SIA has not been connected to OpenAI yet.');
     $key = hash_hmac('sha256', $remote, $secret);
     $path = $directory . '/' . $key . '.json';
     $stream = @fopen($path, 'c+');
-    if (!$stream) porter_fail(503, 'SECURITY_STORAGE', 'Porter is temporarily unavailable.');
+    if (!$stream) porter_fail(503, 'SECURITY_STORAGE', 'SIA is temporarily unavailable.');
     try {
-        if (!flock($stream, LOCK_EX)) porter_fail(503, 'SECURITY_STORAGE', 'Porter is temporarily unavailable.');
+        if (!flock($stream, LOCK_EX)) porter_fail(503, 'SECURITY_STORAGE', 'SIA is temporarily unavailable.');
         $raw = stream_get_contents($stream);
         $stored = json_decode($raw ?: '{}', true);
         $now = time();

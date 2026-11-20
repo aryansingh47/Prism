@@ -1,12 +1,17 @@
-/* Porter 2.0 · Prism Travels · guest-friendly conversational travel concierge. */
+/* SIA 1.0 · Prism Travels · guest-friendly conversational travel concierge. */
 (() => {
   'use strict';
   const cfg = Object.assign({
-    chatbotName: 'Porter', apiBase: 'api', rootBase: '',
+    chatbotName: 'SIA', apiBase: 'api', rootBase: '',
     avatar: 'assets/porter-avatar.png', contactUrl: 'contact.html#enquiry-form',
     whatsappUrl: 'https://wa.me/919217711610', packageBrowseUrl: 'packages.html',
     healthUrl: 'api/porter-health.php'
   }, window.PRISM_PORTER_CONFIG || {});
+  // Keep the existing endpoint paths for backwards compatibility; SIA is the public brand.
+  // Older HTML files may still declare Porter in PRISM_PORTER_CONFIG. Override it here.
+  cfg.chatbotName = 'SIA';
+  cfg.avatar = (cfg.rootBase || '') + 'assets/sia-avatar.png';
+
   const svg = (type, size = 19) => {
     const common = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"`;
     const paths = {
@@ -21,11 +26,14 @@
       whatsapp: '<path d="M20 11.5a8 8 0 0 1-11.7 7.1L3 20l1.4-5.3A8 8 0 1 1 20 11.5Z"/><path d="M9 8.5c.4 3 3 5.5 6.5 6.5"/>',
       map: '<path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6ZM9 3v15M15 6v15"/>',
       check: '<path d="m5 12 4 4L19 6"/>',
-      info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>'
+      info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+      expand: '<path d="M8 3H3v5M3 3l7 7M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7M16 21h5v-5M21 21l-7-7"/>',
+      restore: '<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M3 9V5a2 2 0 0 1 2-2h4M21 15v4a2 2 0 0 1-2 2h-4"/>',
+      minimize: '<path d="M5 12h14"/>'
     };
     return `<svg ${common}>${paths[type] || paths.info}</svg>`;
   };
-  const state = { open:false, view:'chat', busy:false, history:[], started:false, pending:null, generation:0, lastFocus:null };
+  const state = { open:false, expanded:false, view:'chat', busy:false, history:[], started:false, pending:null, generation:0, lastFocus:null };
   const app = document.createElement('div');
   app.className = 'porter-root';
   const base = cfg.rootBase || '';
@@ -40,22 +48,23 @@
 
   function init(){
     app.innerHTML = `
-      <button type="button" class="porter-launcher" aria-label="Ask Porter, Prism's travel assistant" aria-expanded="false" aria-controls="porter-panel">
+      <button type="button" class="porter-launcher" aria-label="Ask SIA, Prism's travel assistant" aria-expanded="false" aria-controls="porter-panel">
         <img src="${asset(cfg.avatar)}" alt="" width="49" height="49" class="porter-launcher__figure">
-        <span class="porter-launcher__copy"><strong>Ask Porter</strong><small>Your travel concierge</small></span>
+        <span class="porter-launcher__copy"><strong>Ask SIA</strong><small>Your travel concierge</small></span>
         <span class="porter-launcher__arrow">${svg('arrow',17)}</span>
       </button>
-      <section class="porter-panel" id="porter-panel" role="dialog" aria-label="Porter travel assistant" aria-modal="false" hidden>
+      <section class="porter-panel" id="porter-panel" role="dialog" aria-label="SIA travel assistant" aria-modal="false" hidden>
         <header class="porter-header">
           <img class="porter-header__avatar" src="${asset(cfg.avatar)}" width="50" height="50" alt="">
-          <div class="porter-header__title"><strong>Porter</strong><span><i class="porter-status-dot" data-porter-dot></i><span data-porter-status>Checking connection</span></span></div>
+          <div class="porter-header__title"><strong>SIA</strong><span><i class="porter-status-dot" data-porter-dot></i><span data-porter-status>Checking connection</span></span></div>
           <button type="button" class="porter-header__control" data-porter-new title="Start a new conversation" aria-label="New conversation">${svg('plus')}</button>
-          <button type="button" class="porter-header__control" data-porter-close title="Close Porter" aria-label="Close Porter">${svg('close')}</button>
+          <button type="button" class="porter-header__control" data-sia-resize title="Maximise chat" aria-label="Maximise chat" aria-pressed="false">${svg('expand')}</button>
+          <button type="button" class="porter-header__control" data-porter-close title="Minimise chat" aria-label="Minimise chat">${svg('minimize')}</button>
         </header>
         <div class="porter-main">
           <section class="porter-chat-view" data-porter-chat-view>
             <div class="porter-messages" role="log" aria-live="polite" aria-relevant="additions text" data-porter-messages>
-              <div class="porter-intro"><div class="porter-intro__eyebrow">YOUR JOURNEY STARTS HERE</div><h2>Where shall we take you?</h2><p>I'm Porter. Ask me about Prism packages, destinations, budgets or travel ideas. I can help you narrow down the possibilities. Please don’t share passwords or payment details here.</p></div>
+              <div class="porter-intro"><div class="porter-intro__eyebrow">YOUR JOURNEY STARTS HERE</div><h2>Where shall we take you?</h2><p>I'm SIA. Ask me about Prism packages, destinations, budgets or travel ideas. I can help you narrow down the possibilities. Please don’t share passwords or payment details here.</p></div>
               <div class="porter-starters" data-porter-starters>
                 <button type="button" data-porter-prompt="Recommend a winter holiday for two people"><span>${svg('compass')}</span>Winter escapes</button>
                 <button type="button" data-porter-prompt="Compare Jaipur and Munnar for a December holiday"><span>${svg('map')}</span>Compare two places</button>
@@ -64,8 +73,8 @@
             </div>
             <div class="porter-compose-wrap">
               <form class="porter-compose" data-porter-chat-form>
-                <label class="porter-sr-only" for="porter-message-input">Message Porter</label>
-                <textarea id="porter-message-input" rows="1" maxlength="1700" placeholder="Ask Porter anything about your trip…" required></textarea>
+                <label class="porter-sr-only" for="porter-message-input">Message SIA</label>
+                <textarea id="porter-message-input" rows="1" maxlength="1700" placeholder="Ask SIA anything about your trip…" required></textarea>
                 <button type="submit" class="porter-send" data-porter-send aria-label="Send message">${svg('send',19)}</button>
               </form>
               <p class="porter-disclaimer">Travel suggestions are indicative. Avoid sharing sensitive information in chat. <a href="${withinSite('privacy.html')}" target="_blank" rel="noopener">Privacy</a></p>
@@ -97,6 +106,7 @@
     document.body.appendChild(app);
     app.querySelector('.porter-launcher').addEventListener('click', () => toggle(true));
     app.querySelector('[data-porter-close]').addEventListener('click', () => toggle(false));
+    app.querySelector('[data-sia-resize]').addEventListener('click', () => setExpanded(!state.expanded));
     app.querySelector('[data-porter-new]').addEventListener('click', newConversation);
     app.querySelector('[data-porter-chat-form]').addEventListener('submit', submitMessage);
     app.querySelector('[data-porter-lead-form]').addEventListener('submit', submitLead);
@@ -112,6 +122,16 @@
       if(title) app.querySelector('[name=destination]').value=title;
     }
     refreshHealth();
+  }
+  function setExpanded(expanded) {
+    state.expanded = Boolean(expanded);
+    app.classList.toggle('is-expanded', state.expanded);
+    const button = app.querySelector('[data-sia-resize]');
+    button.innerHTML = svg(state.expanded ? 'restore' : 'expand');
+    button.setAttribute('aria-pressed', String(state.expanded));
+    button.setAttribute('aria-label', state.expanded ? 'Restore chat size' : 'Maximise chat');
+    button.title = state.expanded ? 'Restore chat size' : 'Maximise chat';
+    scrollBottom();
   }
   function toggle(open){
     state.open=open;
@@ -169,21 +189,21 @@
     addBubble('user',text);state.history.push({role:'user',content:text});
     state.busy=true;app.querySelector('[data-porter-send]').disabled=true;
     const generation=state.generation;
-    const pending=document.createElement('div');pending.className='porter-typing';pending.setAttribute('role','status');pending.setAttribute('aria-label','Porter is thinking');
+    const pending=document.createElement('div');pending.className='porter-typing';pending.setAttribute('role','status');pending.setAttribute('aria-label','SIA is thinking');
     pending.innerHTML='<span></span><span></span><span></span>';
     app.querySelector('[data-porter-messages]').appendChild(pending);scrollBottom();
     const controller=new AbortController();state.pending=controller;
     try{
       const res=await fetch(endpoint('porter-chat.php'),{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:text,history}),signal:controller.signal});
       let json=null;try{json=await res.json();}catch{}
-      if(!res.ok||!json?.ok)throw Object.assign(new Error(json?.message||'Unable to connect to Porter. Please try again.'),{code:json?.code||'NETWORK_ERROR'});
+      if(!res.ok||!json?.ok)throw Object.assign(new Error(json?.message||'Unable to connect to SIA. Please try again.'),{code:json?.code||'NETWORK_ERROR'});
       if(generation!==state.generation)return;
       addBubble('assistant',json.reply);addCards(json.cards);
       state.history.push({role:'assistant',content:json.reply});
       setConnection('connected','AI connected · '+(json.model||'Terra'));
     }catch(err){
       if(err.name==='AbortError'||generation!==state.generation)return;
-      const message=err.message||'Porter is unavailable at the moment.';
+      const message=err.message||'SIA is unavailable at the moment.';
       addBubble('assistant',message+(err.code?' ('+err.code+')':''),'error');
       setConnection('error','Connection needs attention');
     }finally{
