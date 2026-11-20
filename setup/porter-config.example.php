@@ -1,24 +1,14 @@
 <?php
 /**
- * Copy this file to setup/porter-config.php and fill in the real values.
- * This file is intentionally safe to commit; porter-config.php should not contain secrets in Git.
+ * Copy to ../prism-private/porter-config.php (a PRIVATE directory outside public_html).
+ * Do not commit a populated copy, share it in a chat, or expose it through a URL.
  */
 return [
-    // Primary AI provider.
-    'provider' => 'openai',
-
-    // OpenAI configuration.
-    'openai_api_key' => 'replace-with-your-openai-api-key',
-    'openai_model' => 'gpt-4.1-mini',
-    'openai_timeout_seconds' => 25,
-
-    // Notification and storage settings.
-    'notification_email' => 'hello@tripbyprism.co.in',
-    'from_email' => 'noreply@tripbyprism.co.in',
-    'from_name' => 'Porter by Prism',
-    'enquiry_storage' => __DIR__ . '/../storage/porter-enquiries.jsonl',
-
-    // Runtime behaviour.
-    'allow_fallback_without_ai' => true,
-    'max_history_messages' => 12,
+    'openai_api_key' => 'sk-REPLACE_WITH_YOUR_PROJECT_KEY',
+    'openai_model' => 'gpt-6.1-terra',
+    'reasoning_effort' => 'low',
+    'max_output_tokens' => 1050,
+    'openai_timeout_seconds' => 35,
+    'rate_limit_per_10min' => 15,
+    'max_history_messages' => 10,
 ];

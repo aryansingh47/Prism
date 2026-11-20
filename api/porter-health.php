@@ -1,15 +1,11 @@
 <?php
-
 declare(strict_types=1);
-
 require __DIR__ . '/porter-bootstrap.php';
-
-$config = porter_config();
-$knowledge = porter_knowledge();
-porter_json_response([
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'GET') porter_fail(405, 'METHOD_NOT_ALLOWED', 'Method not allowed.');
+porter_reply([
     'ok' => true,
-    'chatbot' => $knowledge['brand']['chatbot_name'] ?? 'Porter',
-    'provider' => $config['provider'] ?? 'openai',
-    'has_api_key' => trim((string)($config['openai_api_key'] ?? '')) !== '',
-    'package_count' => count($knowledge['packages'] ?? []),
+    'ready' => porter_ready(),
+    'service' => 'Porter',
+    'model' => (string)(porter_settings()['openai_model'] ?? 'gpt-6.1-terra'),
+    'note' => 'Ready means configured, not that a live OpenAI request has succeeded.',
 ]);
