@@ -3,7 +3,7 @@ return [
     'brand' => [
         'name' => 'Prism Travel and Advisory Limited',
         'short_name' => 'Prism Travels',
-        'chatbot_name' => 'Porter',
+        'chatbot_name' => 'SIA',
         'tagline' => 'Each Mile With A Smile.',
         'website' => 'https://tripbyprism.co.in/',
         'contact_page' => 'contact.html#enquiry-form',

@@ -5,7 +5,7 @@ require __DIR__ . '/porter-bootstrap.php';
 $input = porter_validate_request();
 $message = porter_clean_message($input['message'] ?? null);
 if ($message === '') porter_fail(422, 'MESSAGE_REQUIRED', 'Please enter a message of up to 1,700 characters.');
-if (!porter_ready()) porter_fail(503, 'NOT_CONFIGURED', 'Porter cannot connect to OpenAI yet. Please contact the Prism team.');
+if (!porter_ready()) porter_fail(503, 'NOT_CONFIGURED', 'SIA cannot connect to OpenAI yet. Please contact the Prism team.');
 porter_limit();
 
 $settings = porter_settings();
@@ -35,7 +35,7 @@ $business = $knowledge['brand'];
 $indiaToday = (new DateTimeImmutable('now', new DateTimeZone('Asia/Kolkata')))->format('Y-m-d');
 $faq = array_map(static fn($f) => ['q'=>$f['question'],'a'=>$f['answer']], $knowledge['faqs'] ?? []);
 $instructions = <<<INSTRUCTIONS
-You are Porter, a thoughtful, warm and competent travel concierge for Prism Travel and Advisory Limited, India.
+You are SIA, a thoughtful, warm and competent travel concierge for Prism Travel and Advisory Limited, India.
 Today in India is {$indiaToday}; use this to interpret relative travel dates, but do not invent schedule or supplier availability.
 You are assisting prospective customers to understand real Prism packages and plan enquiries. Use natural, human language, not repetitive sales copy.
 
@@ -79,7 +79,7 @@ $body = [
 ];
 
 $curl = curl_init('https://api.openai.com/v1/responses');
-if (!$curl) porter_fail(503, 'CURL_UNAVAILABLE', 'Porter is temporarily unavailable.');
+if (!$curl) porter_fail(503, 'CURL_UNAVAILABLE', 'SIA is temporarily unavailable.');
 curl_setopt_array($curl, [
     CURLOPT_POST => true,
     CURLOPT_RETURNTRANSFER => true,
@@ -98,18 +98,18 @@ $httpStatus = (int)curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
 curl_close($curl);
 
 if ($curlError !== 0 || !is_string($responseBody)) {
-    error_log('Porter OpenAI network error (curl code ' . $curlError . ')');
-    porter_fail(504, 'UPSTREAM_NETWORK', 'Porter could not reach OpenAI. Please try again or contact the Prism team.');
+    error_log('SIA OpenAI network error (curl code ' . $curlError . ')');
+    porter_fail(504, 'UPSTREAM_NETWORK', 'SIA could not reach OpenAI. Please try again or contact the Prism team.');
 }
 $data = json_decode($responseBody, true);
 if ($httpStatus < 200 || $httpStatus >= 300) {
     // Do not expose upstream raw errors; they may contain operational metadata.
     $apiError = is_array($data) ? (string)($data['error']['code'] ?? '') : '';
-    error_log('Porter OpenAI HTTP ' . $httpStatus . ' ' . preg_replace('/[^a-zA-Z0-9_-]/','', $apiError));
-    if ($httpStatus === 401 || $httpStatus === 403) porter_fail(503, 'OPENAI_AUTH', 'Porter’s OpenAI credentials need attention. Please contact the Prism team.');
-    if ($httpStatus === 429) porter_fail(503, 'OPENAI_QUOTA', 'Porter has reached an AI usage or rate limit. Please contact the Prism team.');
-    if ($httpStatus === 400 || $httpStatus === 404) porter_fail(503, 'OPENAI_MODEL', 'Porter’s AI model is not available for this API project. Please contact the Prism team.');
-    porter_fail(503, 'OPENAI_UPSTREAM', 'Porter is temporarily unable to respond. Please try again later.');
+    error_log('SIA OpenAI HTTP ' . $httpStatus . ' ' . preg_replace('/[^a-zA-Z0-9_-]/','', $apiError));
+    if ($httpStatus === 401 || $httpStatus === 403) porter_fail(503, 'OPENAI_AUTH', 'SIA’s OpenAI credentials need attention. Please contact the Prism team.');
+    if ($httpStatus === 429) porter_fail(503, 'OPENAI_QUOTA', 'SIA has reached an AI usage or rate limit. Please contact the Prism team.');
+    if ($httpStatus === 400 || $httpStatus === 404) porter_fail(503, 'OPENAI_MODEL', 'SIA’s AI model is not available for this API project. Please contact the Prism team.');
+    porter_fail(503, 'OPENAI_UPSTREAM', 'SIA is temporarily unable to respond. Please try again later.');
 }
 
 $textParts = [];
@@ -126,8 +126,8 @@ if (is_array($data)) {
 }
 $answer = trim(implode("\n", $textParts));
 if ($answer === '') {
-    error_log('Porter: OpenAI response was empty; status=' . (string)($data['status'] ?? 'unknown'));
-    porter_fail(502, 'OPENAI_EMPTY', 'Porter received an empty response. Please try once more.');
+    error_log('SIA: OpenAI response was empty; status=' . (string)($data['status'] ?? 'unknown'));
+    porter_fail(502, 'OPENAI_EMPTY', 'SIA received an empty response. Please try once more.');
 }
 
 $cards = [];
