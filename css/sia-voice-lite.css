@@ -1,0 +1,44 @@
+/* SIA Voice pilot – self-contained extension, follows the existing green interface. */
+.porter-root .sia-voice-pane[hidden],.porter-root .sia-voice-member-message[hidden]{display:none!important}
+.porter-root .porter-main{position:relative}
+.porter-root.sia-voice-active .porter-chat-view,.porter-root.sia-voice-active .porter-lead-view,.porter-root.sia-voice-active .porter-footer{display:none!important}
+.porter-root .sia-voice-pane{position:absolute;inset:0;display:flex;flex-direction:column;min-height:0;overflow-y:auto;overscroll-behavior:contain;background:#f7fbf8;color:#173b2c;z-index:5;padding:16px;gap:10px}
+.porter-root .sia-voice-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.porter-root .sia-voice-back{display:inline-flex;align-items:center;gap:4px;background:none;border:0;color:#166646;padding:5px;font-weight:750;font-size:.84rem}
+.porter-root .sia-voice-tag{font-size:9px;letter-spacing:.1em;font-weight:800;color:#37755a;text-align:right}
+.porter-root .sia-voice-content{display:flex;flex-direction:column;align-items:center;gap:9px}
+.porter-root .sia-voice-portrait{height:126px;width:116px;object-fit:contain;object-position:center;background:transparent;border:none;box-shadow:none;margin:2px 0}
+.porter-root .sia-voice-content h2{font-size:1.23rem;color:#113d2b;line-height:1.2;margin:0;text-align:center}
+.porter-root [data-sia-voice-status]{font-size:.88rem;line-height:1.5;color:#436d56;text-align:center;min-height:22px;margin:0}
+.porter-root [data-sia-voice-pane][data-mode="error"] [data-sia-voice-status]{color:#a54136}
+.porter-root .sia-voice-wave{display:flex;align-items:center;justify-content:center;gap:5px;height:24px;margin:2px 0}
+.porter-root .sia-voice-wave i{width:4px;height:7px;background:#51a77c;border-radius:9px}
+.porter-root .sia-voice-wave i:nth-child(2),.porter-root .sia-voice-wave i:nth-child(6){height:14px}
+.porter-root .sia-voice-wave i:nth-child(3),.porter-root .sia-voice-wave i:nth-child(5){height:21px}
+.porter-root .sia-voice-wave i:nth-child(4){height:16px}
+.porter-root .sia-voice-pane.is-speaking .sia-voice-wave i{animation:sia-voice-oscillate 1.2s ease-in-out infinite}
+.porter-root .sia-voice-pane.is-speaking .sia-voice-wave i:nth-child(2n){animation-delay:.25s}
+.porter-root .sia-voice-pane.is-speaking .sia-voice-wave i:nth-child(3n){animation-delay:.5s}
+@keyframes sia-voice-oscillate{0%,100%{transform:scaleY(.6)}50%{transform:scaleY(1.4)}}
+.porter-root .sia-voice-clock{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:320px;background:#eaf5ed;border:1px solid #d7e9da;border-radius:9px;padding:10px 12px;font-size:.82rem}
+.porter-root .sia-voice-clock strong{font-size:1.03rem;letter-spacing:.03em}
+.porter-root .sia-voice-member-message{border:1px solid #b6d2be;background:#fff;border-radius:10px;padding:10px;width:100%;text-align:center}
+.porter-root .sia-voice-member-message p{margin:0 0 8px;font-size:.82rem}
+.porter-root .sia-voice-member-message a{font-weight:800;color:#156747;text-decoration:underline}
+.porter-root .sia-voice-consent{display:flex;align-items:flex-start;gap:8px;width:100%;border:1px solid #d6e5d9;border-radius:9px;padding:11px;background:#fff;color:#385346;font-size:.77rem;line-height:1.55}
+.porter-root .sia-voice-consent input{flex:0 0 15px;width:15px;height:15px;margin:2px 0 0;accent-color:#16734e}
+.porter-root .sia-voice-consent a{color:#146344;text-decoration:underline}
+.porter-root .sia-voice-buttons{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;width:100%;margin:3px 0}
+.porter-root .sia-voice-start,.porter-root .sia-voice-round{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;border-radius:7px;border:1px solid #217454;font-weight:800;font-size:.84rem}
+.porter-root .sia-voice-start{background:#16764e;color:#fff;padding:9px 12px}
+.porter-root .sia-voice-start:hover{background:#0e6340}
+.porter-root .sia-voice-round{width:41px;background:#fff;color:#206246;padding:0}
+.porter-root .sia-voice-end{color:#a9342e;border-color:#d8b4b2}
+.porter-root .sia-voice-buttons button:disabled{opacity:.48;cursor:not-allowed}
+.porter-root .sia-voice-note{font-size:.72rem;color:#657a6b;line-height:1.55;text-align:center;margin:0}
+.porter-root .sia-voice-captions{min-height:0;max-height:125px;overflow:auto;font-size:.79rem;line-height:1.5;border-top:1px solid #d8e8de;padding-top:8px}
+.porter-root .sia-voice-captions p{margin:0 0 5px}
+.porter-root .sia-voice-captions strong{color:#21583a}
+@media(max-height:680px){.porter-root .sia-voice-portrait{height:85px;width:90px}.porter-root .sia-voice-pane{padding:10px;gap:7px}}
+@media(max-width:420px){.porter-root .sia-voice-tag{font-size:8px}.porter-root .sia-voice-portrait{height:100px;width:95px}.porter-root .sia-voice-pane{padding:12px;gap:8px}.porter-root .sia-voice-consent{padding:8px;font-size:.7rem}.porter-root .sia-voice-content h2{font-size:1.13rem}}
+@media(prefers-reduced-motion:reduce){.porter-root .sia-voice-pane.is-speaking .sia-voice-wave i{animation:none}}

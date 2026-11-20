@@ -260,3 +260,22 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
+
+
+/* SIA Voice pilot loader (direct OpenAI Live WebRTC; no persistent controller). */
+(() => {
+  const base = window.PRISM_PORTER_CONFIG?.rootBase || '';
+  const boot = () => {
+    if (document.querySelector('script[data-sia-voice-lite]')) return;
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = base + 'css/sia-voice-lite.css?v=pilot-1';
+    document.head.appendChild(css);
+    const script = document.createElement('script');
+    script.src = base + 'js/sia-voice-lite.js?v=pilot-1';
+    script.dataset.siaVoiceLite = 'true';
+    document.head.appendChild(script);
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
+  else boot();
+})();
