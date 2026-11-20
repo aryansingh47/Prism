@@ -1,4 +1,4 @@
-/* SIA Voice Pilot – Live audio over WebRTC. No separate Node service or quota ledger.
+/* SIA Voice – Live audio over WebRTC. No separate Node service or quota ledger.
    Access is verified by api/sia-voice-session.php; client timer is NOT a hard cap. */
 (() => {
   'use strict';
@@ -53,7 +53,7 @@
     pane.innerHTML = `
       <div class="sia-voice-top">
         <button type="button" data-sia-voice-back class="sia-voice-back">${svg('back')} Back to chat</button>
-        <span class="sia-voice-tag">VOICE PREVIEW · MEMBERS ONLY</span>
+
       </div>
       <div class="sia-voice-content">
         <img src="${base}assets/sia-avatar.png" alt="SIA, Prism's virtual travel concierge" class="sia-voice-portrait">
@@ -62,17 +62,17 @@
         <div class="sia-voice-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         <div class="sia-voice-clock">Current call <strong data-sia-voice-clock>00:00</strong></div>
         <div class="sia-voice-member-message" data-sia-voice-members hidden>
-          <p>Voice preview is available to invited Prism members who have verified their email.</p>
+          <p>Sign in to your verified Prism account to use voice conversations.</p>
           <a href="${base}account.html">Log in / Sign up</a>
         </div>
-        <label class="sia-voice-consent"><input type="checkbox" data-sia-voice-consent> <span>I understand SIA uses an AI-generated voice and that my microphone audio is sent to OpenAI. Voice sessions are billed by OpenAI; this preview does not yet have a server-enforced monthly limit. <a href="${base}privacy.html" target="_blank" rel="noopener noreferrer">Privacy notice</a>.</span></label>
+        <label class="sia-voice-consent"><input type="checkbox" data-sia-voice-consent> <span>I understand SIA uses an AI-generated voice and that my microphone audio is sent to OpenAI. Voice sessions are billed by OpenAI; there is no server-enforced monthly time limit yet. <a href="${base}privacy.html" target="_blank" rel="noopener noreferrer">Privacy notice</a>.</span></label>
         <div class="sia-voice-buttons">
           <button type="button" data-sia-voice-start class="sia-voice-start">${svg('mic')} Start speaking</button>
           <button type="button" data-sia-voice-mute class="sia-voice-round" aria-label="Mute microphone" title="Mute microphone" disabled>${svg('mic')}</button>
           <button type="button" data-sia-voice-speaker class="sia-voice-round" aria-label="Mute SIA audio" title="Mute SIA audio" disabled>${svg('audio')}</button>
           <button type="button" data-sia-voice-end class="sia-voice-round sia-voice-end" aria-label="End conversation" title="End conversation" disabled>${svg('end')}</button>
         </div>
-        <p class="sia-voice-note">For this test release, calls close locally after two minutes. That timer is not a server-side or billing cap.</p>
+        <p class="sia-voice-note">Calls close locally after two minutes. This timer is not a server-side or billing cap.</p>
       </div>
       <div data-sia-voice-captions class="sia-voice-captions" aria-label="Voice transcript when available" aria-live="polite"></div>
       <audio data-sia-voice-audio autoplay playsinline></audio>
@@ -187,7 +187,16 @@
         body: JSON.stringify({sdp: peer.localDescription?.sdp || offer.sdp})
       });
       const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.message || 'Unable to start a voice call.');
+      if (!response.ok || !result.ok) {
+        // Preserve the backend's actionable limit message instead of a generic error.
+        if (response.status === 429 && result.code === 'VOICE_START_LIMIT') {
+          throw new Error(result.message || 'Too many voice starts. Please try again later.');
+        }
+        if (result.code === 'VOICE_PROVIDER_LIMIT') {
+          throw new Error('OpenAI voice capacity or quota is temporarily exhausted. Please try again later.');
+        }
+        throw new Error(result.message || 'Unable to start a voice call.');
+      }
       if (generation !== state.generation) return;
       await peer.setRemoteDescription({type:'answer',sdp:result.sdp});
       state.active = true;
@@ -198,7 +207,7 @@
       state.timer = window.setInterval(() => {
         state.duration += 1;
         q('[data-sia-voice-clock]').textContent = time(state.duration);
-        if (state.duration >= MAX_PREVIEW_SECONDS) stopVoice('Two-minute voice preview ended. You can start another call if invited.');
+        if (state.duration >= MAX_PREVIEW_SECONDS) stopVoice('Two-minute call ended. You can start another conversation subject to the session-start limit.');
       },1000);
       q('[data-sia-voice-captions]').replaceChildren();
       setStatus('Connected — speak naturally to SIA.', 'live');
