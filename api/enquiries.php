@@ -12,7 +12,13 @@ rate_limit('enquiry',client_ip(),6,3600);
 if (!empty($data['website'])) okay(['message'=>'Thank you for your enquiry.']);
 if (($data['consent'] ?? false)!==true) fail(422,'Please consent to the use of your contact details.','CONSENT_REQUIRED');
 $first=field($data,'first_name',80);$last=field($data,'last_name',80);$email=email_field($data);
-$phone=field($data,'phone',30);$company=field($data,'company',120);
+$phone=field($data,'phone',30);
+// PRISM_PHONE_10_TO_15: server-side validation for all enquiry entry points.
+$phoneDigits=preg_replace('/\D+/', '', $phone);
+if (!is_string($phoneDigits) || strlen($phoneDigits)<10 || strlen($phoneDigits)>15 || !preg_match('/^\+?[0-9\s().-]+$/', $phone)) {
+    fail(422,'Enter a valid phone number containing 10–15 digits.','INVALID_PHONE');
+}
+$company=field($data,'company',120);
 $interest=field($data,'interest',60);$departure=field($data,'departure_city',100);$destination=field($data,'destination',160);
 $allowed=['Personal holiday','Flights & hotels','Corporate travel','MICE / events','Destination wedding','Ground transport','Group travel','Travel advisory','Other / not sure'];
 if (!$first || !$last || !in_array($interest,$allowed,true)) fail(422,'Name and a travel interest are required.','INVALID_FIELD');
