@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="750" viewBox="0 0 1800 750" role="img" aria-label="Illustrative mountain and valley landscape">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#3e86a0"/><stop offset=".54" stop-color="#a3c9c7"/><stop offset="1" stop-color="#edf0dc"/></linearGradient><linearGradient id="hill" x2="0" y2="1"><stop stop-color="#2c746c"/><stop offset="1" stop-color="#174558"/></linearGradient></defs>
+<rect width="1800" height="750" fill="url(#sky)"/><circle cx="1390" cy="152" r="91" fill="#fff7d2" opacity=".67"/>
+<path d="M0 515 214 350 362 425 600 232 790 388 1037 258 1193 362 1402 219 1612 399 1800 288 1800 750H0Z" fill="#86a9aa"/>
+<path d="M0 580 270 441 490 511 760 329 1014 465 1198 354 1484 487 1644 393 1800 509 1800 750H0Z" fill="#507d80"/>
+<path d="M0 630 280 528 534 611 795 453 1043 568 1320 455 1545 559 1800 462 1800 750H0Z" fill="url(#hill)"/>
+<path d="M0 705 Q350 635 680 697T1340 659T1800 686V750H0Z" fill="#153b4b" opacity=".75"/>
+<path d="M600 232 553 309 620 281 655 309 703 291Z M1037 258 997 311 1041 300 1085 333Z M1402 219 1347 286 1400 274 1446 302Z" fill="#e1ece9" opacity=".78"/>
+</svg>

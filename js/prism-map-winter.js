@@ -48,15 +48,15 @@
   }
   function locationURL(p) {
     const lat = encodeURIComponent(p.lat), lng = encodeURIComponent(p.lng);
-    return `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=11/${lat}/${lng}`;
+    return `https://www.google.com/maps/search/?api=1&query=${lat}%2C${lng}`;
   }
   function showError(target, message, point) {
     target.replaceChildren();
     const box=document.createElement('div');box.className='pwx-map-placeholder';
     const title=document.createElement('strong');title.textContent='The interactive map is unavailable.';
-    const para=document.createElement('p');para.textContent=message+' You can still open the location on OpenStreetMap.';
+    const para=document.createElement('p');para.textContent=message+' You can still open the location in Google Maps.';
     const anchor=document.createElement('a');anchor.href=point?locationURL(point):'https://www.openstreetmap.org/';
-    anchor.target='_blank';anchor.rel='noopener noreferrer';anchor.textContent='Open in OpenStreetMap ↗';
+    anchor.target='_blank';anchor.rel='noopener noreferrer';anchor.textContent='Open in Google Maps ↗';
     box.append(title,para,anchor);target.append(box);
   }
   function setupMap(L, target, zoom=6) {

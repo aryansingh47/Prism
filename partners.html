@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Become a Travel Partner | Prism Travels</title>
+  <meta name="description" content="Apply to work with Prism Travels as an accommodation, transport or local-experience partner. All suppliers undergo manual verification.">
+  <meta name="robots" content="index,follow"><meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="icon" href="assets/favicon-64.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet"><link href="css/partner-portal.css?v=20261121a" rel="stylesheet">
+  <script src="js/partner-portal.js?v=20261121a" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="topbar"><div class="container topbar__inner"><span>PERSONAL TRAVEL PLANNING · INDIA &amp; BEYOND</span></div></div>
+<header class="site-header"><div class="container header__inner">
+<a class="brand" href="index.html" aria-label="Prism homepage"><img class="brand__mark" src="assets/prism-mark.png" width="53" height="60" alt=""><span class="brand__text"><span class="brand__name">PRISM</span><span class="brand__sub">TRAVELS &amp; ADVISORY</span><span class="brand__tagline">Each Mile With A Smile.</span></span></a>
+<nav class="partner-nav" aria-label="Partner navigation"><a href="index.html">Return to website</a><a href="contact.html">Contact Prism</a></nav>
+</div></header>
+<main id="main" class="partner-page">
+<section class="partner-hero"><div class="container partner-hero__inner"><div><span class="partner-kicker">PRISM PARTNER NETWORK</span><h1>Grow with journeys<br>worth remembering.</h1><p>Apply to supply accommodation, airport transfers, private transport, local experiences and specialist services to Prism's travel consultants.</p><div class="partner-hero__chips"><span>Hotels &amp; motels</span><span>Resorts &amp; stays</span><span>Transport</span><span>Experiences &amp; guides</span></div></div><div class="partner-hero__aside"><strong>People-first partnerships</strong><p>Every application is reviewed. Registration does not guarantee business, rates, bookings or public listing.</p></div></div></section>
+<section class="partner-content container" id="partner-forms">
+ <div class="partner-intro"><span class="partner-kicker partner-kicker--dark">PARTNER ONBOARDING</span><h2>Make your business part of the itinerary.</h2><p>Register an authorised contact for your business. We'll verify the email address, review submitted details and contact you before activating supplier access.</p></div>
+ <div class="partner-workspace" data-partner-app>
+  <div class="partner-tabs" role="tablist" aria-label="Partner portal">
+   <button type="button" role="tab" data-tab="register" aria-selected="true">Apply as a partner</button>
+   <button type="button" role="tab" data-tab="login" aria-selected="false">Partner sign in</button>
+  </div>
+  <p class="partner-notice" data-status role="status" aria-live="polite"></p>
+  <form id="partner-register" class="partner-form" data-form="register" autocomplete="on">
+   <h3>Business registration</h3><p class="partner-muted">All fields marked * are required. No documents or payment details are collected here.</p>
+   <div class="partner-form-grid">
+    <label>Registered business name *<input name="business_name" required minlength="3" maxlength="150" autocomplete="organization" placeholder="Business or property name"></label>
+    <label>Partner category *<select name="category" required><option value="">Choose a category</option><option value="hotel">Hotel</option><option value="motel">Motel</option><option value="resort">Resort</option><option value="homestay">Homestay</option><option value="transport">Taxi / transfers / transport</option><option value="activities">Activities / excursions</option><option value="local_guide">Local guide</option><option value="other">Other supplier</option></select></label>
+    <label data-rating-field>Accommodation classification<select name="star_rating"><option value="">Unrated / not applicable</option><option value="2">2-star</option><option value="3">3-star</option><option value="4">4-star</option><option value="5">5-star</option><option value="1">1-star</option></select></label>
+    <label>Authorised contact person *<input name="contact_name" autocomplete="name" maxlength="120" required placeholder="Full name"></label>
+    <label>Business contact email *<input type="email" name="email" autocomplete="email" maxlength="254" required></label>
+    <label>Phone / WhatsApp *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="25" required placeholder="10–15 digits, country code optional"></label>
+    <label>City *<input name="city" maxlength="100" required autocomplete="address-level2"></label>
+    <label>State / UT *<input name="state" maxlength="100" required autocomplete="address-level1"></label>
+    <label class="partner-span-2">Business address *<input name="address" maxlength="250" required autocomplete="street-address"></label>
+    <label>PIN / Postal code<input name="postal_code" maxlength="15" autocomplete="postal-code"></label>
+    <label>Website (optional)<input name="website_url" type="url" maxlength="255" placeholder="https://example.com"></label>
+    <label class="partner-span-2">Business licence / registration reference (optional)<input name="registration_id" maxlength="80" placeholder="GSTIN, tourism registration or business registration reference"></label>
+    <label class="partner-span-2">Tell us about your services *<textarea name="description" minlength="20" maxlength="1400" rows="4" required placeholder="Location, room or vehicle types, capacity, seasonality, standout facilities and services."></textarea></label>
+    <label class="partner-span-2">Create a password *<input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="250" required placeholder="At least 12 characters, including letters and a number"></label>
+   </div>
+   <label class="partner-hidden" aria-hidden="true">Leave this empty<input name="website_field" tabindex="-1" autocomplete="off"></label>
+   <label class="partner-consent"><input type="checkbox" name="consent" required><span>I confirm I represent this business and agree that Prism may process the information provided to review my application, in accordance with the <a href="privacy.html" target="_blank" rel="noopener noreferrer">Privacy Notice</a>.</span></label>
+   <button class="button" type="submit">Submit partner application <span aria-hidden="true">→</span></button>
+  </form>
+  <form id="partner-login" class="partner-form" data-form="login" hidden>
+   <h3>Welcome back.</h3><p class="partner-muted">View application status and, after approval, manage service offerings.</p>
+   <div class="partner-form-grid"><label>Email address *<input type="email" name="email" autocomplete="email" required></label><label>Password *<input type="password" name="password" autocomplete="current-password" required></label></div>
+   <button class="button" type="submit">Sign in securely</button>
+   <details class="partner-resend"><summary>Didn't receive your verification email?</summary><p>Enter the address used during registration. You can request another link if the previous one expired.</p><label>Registered email<input type="email" data-resend-email></label><button type="button" class="partner-secondary" data-resend>Resend verification link</button></details><details class="partner-resend"><summary>Forgot your password?</summary><p>We will send a one-time reset link to your registered email.</p><label>Registered email<input type="email" data-forgot-email></label><button type="button" class="partner-secondary" data-forgot>Request password reset</button></details>
+  </form>
+  <form id="partner-reset" class="partner-form" data-form="reset_password" hidden>
+   <h3>Reset your partner password</h3><p class="partner-muted">Choose a new password. This one-time reset link expires in 30 minutes.</p>
+   <label>New password *<input name="password" type="password" autocomplete="new-password" minlength="12" maxlength="250" required></label>
+   <input type="hidden" name="token">
+   <button type="submit" class="button">Update password</button>
+  </form>
+  <section class="partner-dashboard" data-dashboard hidden aria-label="Partner dashboard">
+   <div class="partner-dashboard__top"><div><span class="partner-kicker partner-kicker--dark">PARTNER DASHBOARD</span><h3 data-business-name>Partner profile</h3><p data-partner-state></p></div><button type="button" class="partner-secondary" data-logout>Sign out</button></div>
+   <div class="partner-application-status" data-application-status></div>
+   <section data-offer-workspace hidden><h4>Propose a service offering</h4><p class="partner-muted">New offerings are reviewed by Prism before being considered for supplier sourcing. They do not appear on the public website automatically.</p>
+     <form data-form="create_offer" class="partner-form-grid partner-offer-form"><label>Offering name *<input required name="name" maxlength="140" placeholder="Deluxe valley-view room / 6-seat SUV"></label><label>Type *<select name="offer_type" required><option value="room">Accommodation / room</option><option value="vehicle">Vehicle / transfer</option><option value="experience">Experience / excursion</option><option value="other">Other service</option></select></label><label>Guest / passenger capacity<input type="number" min="1" max="999" name="capacity"></label><label>Indicative price (INR)<input type="number" min="0" step="0.01" name="indicative_price"></label><label class="partner-span-2">Offering description *<textarea name="description" required minlength="20" maxlength="1500" rows="3"></textarea></label><div class="partner-span-2"><button type="submit" class="button">Submit offering for review</button></div></form>
+     <h4>Your submitted offerings</h4><div data-offer-list class="partner-offer-list"></div>
+   </section>
+  </section>
+ </div>
+</section>
+<section class="partner-footer-band"><div class="container"><strong>Looking for a different kind of collaboration?</strong><p>Corporate transport providers, specialist guides, adventure operators and accessible-travel suppliers are welcome to enquire.</p><a href="contact.html#enquiry-form" class="button button--light">Speak to Prism</a></div></section>
+</main>
+<footer class="partner-footer"><div class="container"><span>© Prism Travel and Advisory Limited</span><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="index.html">Prism Travels</a></div></footer>
+</body></html>
