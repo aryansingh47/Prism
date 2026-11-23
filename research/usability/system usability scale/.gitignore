@@ -1,0 +1,22 @@
+# Never commit raw participant data, consent files, exports or generated analytics
+private/
+raw/
+responses/
+exports/
+recordings/
+*.key
+*.pem
+.env
+.env.*
+**/.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+# Private output naming conventions
+*PRIVATE-RESPONSES*.csv
+*PRIVATE-CONSENT*.csv
+private-summary*.json
+*.xlsx
+# Ignore arbitrary exported CSVs; only empty published templates are tracked
+*.csv
+!templates/*.csv
