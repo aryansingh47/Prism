@@ -1,31 +1,25 @@
-**PRISM**
+# TECHNOLOGY OPERATIONS
 
-**TECHNOLOGY OPERATIONS**
-
-**STANDARD OPERATING PROCEDURES**
+# STANDARD OPERATING PROCEDURES
 
 A practical operating system for website delivery, software engineering, customer information, security, infrastructure and continuity.
 
 | **DOCUMENT CONTROL**           | **VALUE**                                                                                                                 |
 |--------------------------------|---------------------------------------------------------------------------------------------------------------------------|
 | **Document ID**                | PRISM-TECH-SOP-001                                                                                                        |
-| **Version**                    | 1.0 - approval draft                                                                                                      |
+| **Version**                    | 1.0                                                                                                                       |
 | **Prepared**                   | 18 November 2026                                                                                                          |
-| **Business**                   | PRISM Travel and Advisory Limited                                                                                         |
-| **Scope**                      | Website, domain, hosting, development, customer enquiries, accounts, data, email, suppliers and future technical products |
-| **Classification**             | Internal - confidential operational guidance                                                                              |
-| **Proposed accountable owner** | Technology Lead / person appointed by management                                                                          |
-| **Approval authority**         | Director / delegated business owner - pending approval                                                                    |
-| **Review cycle**               | Quarterly and following material changes or incidents                                                                     |
+| **Business**                   | Prism Travels & Advisory Limited                                                                                          |
+| **Scope**                      | Website, Domain, Hosting, Development, Customer Enquiries, Accounts, Data, Email, Suppliers, and Future Technical Products|
+| **Classification**             | Internal - Confidential Operational Guidance                                                                              |
+| **Proposed Accountable Owner** | Technology Lead                                                                                                           |
+| **Approval authority**         | Director                                                                                                                  |
+| **Review cycle**               | Quarterly, and following material changes or incidents                                                                    |
 
-| **IMPLEMENTATION STATUS** This is an actionable SOP baseline, not proof that every control is already configured. Owners, service levels, privacy-retention periods and production readiness must be approved and verified before this document becomes binding operational policy. |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 # How to use this manual
 
 A Standard Operating Procedure (SOP) is a repeatable sequence of actions that identifies the trigger, who acts, what must be done, what must be recorded, and the evidence required to declare a task complete. This manual is meant to be used during normal operations and incidents, not merely stored as a reference.
-
-The attached ENGR 301 Bodies of Knowledge notes distinguish frameworks (what must be managed) from methodology (how to act), and group project management into initiation, planning, execution, monitoring/control and closing. The companion Course Methodology prioritises issues, small tasks, feature branches, reviews, testing, traceability and retrospectives. Prism adapts these concepts from its GitLab course setting to GitHub and Hostinger. \[A1\] \[A2\]
 
 **INTERPRETATION OF NORMATIVE LANGUAGE**
 
@@ -36,16 +30,6 @@ The attached ENGR 301 Bodies of Knowledge notes distinguish frameworks (what mus
 | **MAY**             | Optional implementation choice.                                                  |
 | **PROPOSED TARGET** | Internal service objective requiring management sign-off; not a legal guarantee. |
 | **VERIFY**          | Environment or implementation has not been independently confirmed.              |
-
-**CONFIGURATION AND VERSION ASSUMPTIONS**
-
-- Known from earlier Prism work: public website tripbyprism.co.in; code is managed through the GitHub repository aryansingh47/Prism; domain/website administration through Hostinger; shared @tripbyprism.co.in business email; customer enquiry/account backend has been designed as a PHP/MySQL patch.
-
-- Current GitHub main listing (checked 18 November 2026) shows a static HTML/CSS/JS site; the live Hostinger deployment and whether the PHP/MySQL patch, travel packages and staff dashboard are actually installed were not verified. Treat these features as CONDITIONAL until tested. \[E1\]
-
-- This SOP assumes a small team with a Director, Technology Lead, Developer, Content/Travel Operations Lead, Customer Support/Travel Consultant and Security/Privacy Coordinator. One person may hold multiple roles, but a reviewer must be independent for high-risk changes.
-
-- No actual passwords, keys, API tokens, customer records or unredacted database exports belong in this document, GitHub issues, screenshots or shared chat.
 
 # Contents and procedure directory
 
@@ -64,31 +48,31 @@ Procedure identifiers are permanent. If the SOP is reorganised, keep the same ID
 
 ## 1.1 Purpose, scope and business outcomes
 
-The technology function exists to keep Prism accessible, trustworthy and maintainable; safely capture and route customer enquiries; protect traveller information; publish accurate packages; and enable the business to operate online and offline. Success is measured by customer outcomes, recoverability, controllable risk and predictable delivery - not lines of code.
+The technology function exists to keep Prism accessible, trustworthy and maintainable; safely capture and route customer enquiries; protect traveller information; publish accurate packages; and enable the business to operate online and offline. Success is measured by customer outcomes, recoverability, controllable risk and predictable delivery.
 
 ## 1.2 Decision and role register
 
 | **ROLE**                                      | **ACCOUNTABILITY**                                                                                                            | **MINIMUM AUTHORITY**                                          |
 |-----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| **Director / Business Sponsor**               | Approves spending, business-critical changes, customer-impact risk acceptance, supplier agreements and crisis communications. | Final business owner; no routine admin password sharing.       |
+| **Director / CEO**               | Approves spending, business-critical changes, customer-impact risk acceptance, supplier agreements and crisis communications. | Final business owner; no routine admin password sharing.       |
 | **Technology Lead (TL)**                      | Owns architecture, backlog, production access, release approval, backups, cybersecurity coordination and SOP maintenance.     | Admin access only where necessary; approves high-risk changes. |
 | **Developer / Maintainer (DEV)**              | Implements issues, tests, documents and assists with deployments.                                                             | Write to code repository; least privilege on production.       |
-| **Operations / Content Lead (OPS)**           | Owns service catalogue, travel-package pricing, supplier terms, enquiry SLA and customer communications.                      | Content editorial approval; staff dashboard access if needed.  |
+| **Operations / General Manager (OPS/GM)**           | Owns service catalogue, travel-package pricing, supplier terms, enquiry SLA (service level agreement) and customer communications.                      | Content editorial approval; staff dashboard access if needed.  |
 | **Security & Privacy Coordinator (SPC)**      | Coordinates access reviews, incidents, data requests, retention, regulatory counsel and evidence.                             | Read-only audit access where possible; incident triage.        |
 | **Customer Support / Travel Consultant (CS)** | Reviews assigned enquiries, contacts customers, updates statuses and escalates complaints.                                    | Restricted enquiry access; no DB admin.                        |
 | **External vendor**                           | Provides bounded support for an approved service.                                                                             | Named time-limited access under contract.                      |
 
 ## 1.3 RACI for high-impact decisions
 
-| **ACTIVITY**                       | **A (accountable)** | **R (responsible)** | **C / I**                                        |
+| **ACTIVITY**                       | **A** | **R** | **C / I**                                        |
 |------------------------------------|---------------------|---------------------|--------------------------------------------------|
-| **Public site release**            | TL                  | DEV                 | OPS consulted; Director informed                 |
-| **Pricing / itinerary publishing** | OPS                 | Content editor      | TL consulted                                     |
-| **New vendor / recurring spend**   | Director            | TL                  | Finance/OPS consulted                            |
-| **Privacy incident response**      | Director            | SPC + TL            | Legal adviser consulted; affected teams informed |
-| **Database restore**               | TL                  | TL / DBA            | Director & OPS informed                          |
+| **Public site release**            | TL                  | DEV                 | OPS/GM consulted; CEO informed                 |
+| **Pricing / itinerary publishing** | CEO                 | OPS/GM      | TL consulted                                     |
+| **New vendor / recurring spend**   | CEO            | TL                  | GM consulted                            |
+| **Privacy incident response**      | CEO            | SPC + TL            | Legal adviser consulted; affected teams informed |
+| **Database restore**               | TL                  | TL/DEV            | CEO & OPS/GM informed                          |
 | **Customer enquiry handling**      | OPS                 | CS                  | TL for technical faults                          |
-| **Access grant / termination**     | TL                  | TL / account admin  | Hiring manager + SPC                             |
+| **Access grant / termination**     | TL                  | TL / DEV  | HR and SPC                             |
 | **SOP revision**                   | TL                  | Process owner       | Director approves policy changes                 |
 
 ## 1.4 Proposed operational cadence
@@ -99,8 +83,8 @@ The technology function exists to keep Prism accessible, trustworthy and maintai
 | **Twice weekly**          | Triage new GitHub issues; review ageing enquiries and open high-priority bugs.                                                 | TL + OPS / Issue board              |
 | **Weekly**                | Dependency/security review; roadmap stand-up; validate one restore artifact; review content accuracy.                          | TL / Weekly review record           |
 | **Monthly**               | Access review, cost/subscription reconciliation, uptime/error review, sitemap and broken links, supplier risk assessment.      | TL + SPC / Control register         |
-| **Quarterly**             | Restore drill, incident tabletop, privacy/data inventory review, SOP effectiveness, vendor renewal outlook, UX sample testing. | TL + Director / Quarterly sign-off  |
-| **Annually**              | Comprehensive SOP review, domain and certificate plan, contract audit, security assessment, recovery exercise.                 | Director + TL / Annual review       |
+| **Quarterly**             | Restore drill, incident tabletop, privacy/data inventory review, SOP effectiveness, vendor renewal outlook, UX sample testing. | TL + CEO / Quarterly sign-off  |
+| **Annually**              | Comprehensive SOP review, domain and certificate plan, contract audit, security assessment, recovery exercise.                 | CEO + TL / Annual review       |
 
 ## 1.5 Classification and evidence
 
@@ -112,7 +96,7 @@ Evidence location: GitHub issues/PRs for non-sensitive development records; a re
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                                        |
 |----------------------------|----------------------------------------------------------------------------------------------|
-| **Process owner**          | TL; OPS for business priority                                                                |
+| **Process owner**          | TL; OPS/GM for business priority                                                                |
 | **Trigger / frequency**    | New idea, complaint, bug, support request or recurring improvement                           |
 | **Preconditions / inputs** | Requester specifies impact and business need; no sensitive customer content in public issue. |
 
@@ -148,7 +132,7 @@ Adapted from issue-first methodology in \[A2\]; GitHub replaces GitLab.
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                           |
 |----------------------------|---------------------------------------------------------------------------------|
-| **Process owner**          | Director (sponsor); TL (manager)                                                |
+| **Process owner**          | CEO; TL                                                |
 | **Trigger / frequency**    | New integration, major feature, website redesign, account system or new product |
 | **Preconditions / inputs** | Approved problem statement and named sponsor.                                   |
 
@@ -262,7 +246,7 @@ Align with NIST SSDF \[E3\], OWASP ASVS 5.0 \[E4\], OWASP password/session guida
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                                      |
 |----------------------------|--------------------------------------------------------------------------------------------|
-| **Process owner**          | TL (approver); DEV (deployer); OPS (business sign-off)                                     |
+| **Process owner**          | TL (approver); DEV (deployer); OPS/GM (business sign-off)                                     |
 | **Trigger / frequency**    | Approved merge requiring public deployment                                                 |
 | **Preconditions / inputs** | Production access; verified backup; approved PR; tested package of exactly deployed files. |
 
@@ -300,7 +284,7 @@ Hostinger supports file/database import and backup management; features and sche
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                          |
 |----------------------------|--------------------------------------------------------------------------------|
-| **Process owner**          | TL; Director for material impact                                               |
+| **Process owner**          | TL; CEO for material impact                                               |
 | **Trigger / frequency**    | Broken payments/enquiry, site outage, breach, critical bad price, exposed data |
 | **Preconditions / inputs** | Incident ticket, severity assigned and snapshot taken where safe.              |
 
@@ -370,7 +354,7 @@ Google Search guidance \[E7\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                   |
 |----------------------------|-------------------------------------------------------------------------|
-| **Process owner**          | TL (admin); OPS (mail owner)                                            |
+| **Process owner**          | TL (admin); OPS/GM (mail owner)                                            |
 | **Trigger / frequency**    | New mailbox/alias, SMTP change, delivery failure, phishing report       |
 | **Preconditions / inputs** | Approved mailbox purpose, assigned custodian, MFA and recovery details. |
 
@@ -403,7 +387,7 @@ Escalate suspected business email compromise under SOP 19.
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                   |
 |----------------------------|-------------------------------------------------------------------------|
-| **Process owner**          | TL; hiring manager                                                      |
+| **Process owner**          | TL; HR                                                      |
 | **Trigger / frequency**    | Joiner, role change, exit, temporary contractor or compromised account  |
 | **Preconditions / inputs** | Approved role and employment/contract status; central access inventory. |
 
@@ -510,7 +494,7 @@ OWASP ASVS \[E4\] and session/password cheat sheets \[E5\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                                |
 |----------------------------|--------------------------------------------------------------------------------------|
-| **Process owner**          | OPS; CS; TL for technical faults                                                     |
+| **Process owner**          | OPS/GM; CS; TL for technical faults                                                     |
 | **Trigger / frequency**    | Website contact form, guest form, registered customer enquiry or offline lead        |
 | **Preconditions / inputs** | Published privacy notice, working backend and operational mailbox; designated owner. |
 
@@ -548,7 +532,7 @@ If current backend lacks assignment or a retry queue, track these as implementat
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                      |
 |----------------------------|----------------------------------------------------------------------------|
-| **Process owner**          | TL/DBA; SPC                                                                |
+| **Process owner**          | TL; SPC                                                                |
 | **Trigger / frequency**    | Schema change, backup, approved customer export or investigation           |
 | **Preconditions / inputs** | Approved purpose; privileged named access; valid ticket and privacy basis. |
 
@@ -586,7 +570,7 @@ Hostinger DB admin/import guidance \[E6\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                              |
 |----------------------------|------------------------------------------------------------------------------------|
-| **Process owner**          | TL; OPS for business validation                                                    |
+| **Process owner**          | TL; OPS/GM for business validation                                                    |
 | **Trigger / frequency**    | Automatic daily/weekly backup, release backup, quarterly restore drill             |
 | **Preconditions / inputs** | Documented plan features, secure backup destination, access and encrypted storage. |
 
@@ -624,7 +608,7 @@ Hostinger backup documents \[E6\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                |
 |----------------------------|----------------------------------------------------------------------|
-| **Process owner**          | TL; OPS                                                              |
+| **Process owner**          | TL; OPS/GM                                                              |
 | **Trigger / frequency**    | Daily health check; uptime alert; deployment                         |
 | **Preconditions / inputs** | Defined URLs/critical journeys, alert recipient and monitoring tool. |
 
@@ -657,7 +641,7 @@ If external monitoring not yet available, manual checks are temporary only.
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                               |
 |----------------------------|-------------------------------------------------------------------------------------|
-| **Process owner**          | OPS (accountable); CS / content editor                                              |
+| **Process owner**          | OPS/GM (acountable); CS                                              |
 | **Trigger / frequency**    | New package, rate update, expiry, customer quote                                    |
 | **Preconditions / inputs** | Written supplier estimates and dates, inclusion/exclusion details, editor identity. |
 
@@ -728,7 +712,7 @@ NIST SSDF \[E3\], OWASP ASVS \[E4\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                                       |
 |----------------------------|---------------------------------------------------------------------------------------------|
-| **Process owner**          | TL (incident commander); SPC; Director                                                      |
+| **Process owner**          | TL (incident commander); SPC; CEO                                                      |
 | **Trigger / frequency**    | Suspected intrusion, leaked credential, compromised mailbox, data exposure or severe outage |
 | **Preconditions / inputs** | Safe incident channel, on-call contacts and restricted evidence location.                   |
 
@@ -756,7 +740,7 @@ Threat contained, customer data integrity assessed and assigned corrective actio
 
 **ESCALATION / EXCEPTION**
 
-P0 escalate to Director and TL immediately; legal counsel decides reportability and applicable statutory deadlines.
+P0 escalate to CEO and TL immediately; legal counsel decides reportability and applicable statutory deadlines.
 
 **CONTROL NOTE**
 
@@ -766,7 +750,7 @@ CERT-In directions and phased DPDP rules require specialist review; do not subst
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                                        |
 |----------------------------|----------------------------------------------------------------------------------------------|
-| **Process owner**          | SPC; TL; OPS                                                                                 |
+| **Process owner**          | SPC; TL; OPS/GM                                                                                 |
 | **Trigger / frequency**    | New data collection, customer request, vendor transfer, new analytics tool, deletion request |
 | **Preconditions / inputs** | Approved privacy inventory and legal review of applicable law and commencement.              |
 
@@ -804,7 +788,7 @@ Privacy schedule is a required approval artifact, not finalised in this draft.
 
 | **FIELD**                  | **PROCEDURE CONTROL**                            |
 |----------------------------|--------------------------------------------------|
-| **Process owner**          | OPS; TL                                          |
+| **Process owner**          | OPS/GM; TL                                          |
 | **Trigger / frequency**    | New page, content change, quarterly SEO/UX audit |
 | **Preconditions / inputs** | Approved content, URLs and brand assets.         |
 
@@ -841,7 +825,7 @@ Google Search guidance \[E7\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                    |
 |----------------------------|--------------------------------------------------------------------------|
-| **Process owner**          | Director; TL; Finance/OPS                                                |
+| **Process owner**          | CEO; TL; OPS/GM                                                |
 | **Trigger / frequency**    | New SaaS, domain/hosting renewal, payment, vendor change or contract end |
 | **Preconditions / inputs** | Supplier request with service need and expected data access.             |
 
@@ -874,7 +858,7 @@ Critical provider outage: SOP 15 and BCP SOP 23.
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                       |
 |----------------------------|-----------------------------------------------------------------------------|
-| **Process owner**          | TL; OPS; SPC                                                                |
+| **Process owner**          | TL; OPS/GM; SPC                                                                |
 | **Trigger / frequency**    | Any AI chatbot, API integration, automated quote or personalization feature |
 | **Preconditions / inputs** | Approved vendor, data-flow review, documented customer experience.          |
 
@@ -911,7 +895,7 @@ NIST SSDF AI profile \[E10\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                                                     |
 |----------------------------|-------------------------------------------------------------------------------------------|
-| **Process owner**          | Director; TL; OPS                                                                         |
+| **Process owner**          | CEO; TL; OPS                                                                         |
 | **Trigger / frequency**    | Hostinger outage, mailbox failure, DNS incident, staff unavailability, vendor termination |
 | **Preconditions / inputs** | Approved RTO/RPO, offline enquiry intake and emergency contact list.                      |
 
@@ -977,7 +961,7 @@ Missing encrypted device with PII: immediate incident assessment.
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                            |
 |----------------------------|------------------------------------------------------------------|
-| **Process owner**          | TL; OPS                                                          |
+| **Process owner**          | TL; OPS/GM                                                          |
 | **Trigger / frequency**    | Weekly operations review, monthly business review, retrospective |
 | **Preconditions / inputs** | Defined data sources, baseline and owner.                        |
 
@@ -1013,7 +997,7 @@ Inspired by DevOps quality/feedback emphasis in \[A2\].
 
 | **FIELD**                  | **PROCEDURE CONTROL**                                            |
 |----------------------------|------------------------------------------------------------------|
-| **Process owner**          | TL; sponsor                                                      |
+| **Process owner**          | TL; CEO                                                      |
 | **Trigger / frequency**    | Project accepted, service replaced, obsolete integration retired |
 | **Preconditions / inputs** | Completed delivery/retirement plan, owner approval.              |
 
@@ -1048,16 +1032,16 @@ If closed system is subject to investigation/legal hold, obtain legal decision b
 
 | **PRIORITY**    | **ILLUSTRATIVE EVENT**                                                                                  | **RESPONSE TARGET (PROPOSED)**                                               | **AUTHORITY**           |
 |-----------------|---------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|-------------------------|
-| **P0 - Crisis** | Confirmed active account/data compromise, major customer harm, complete site loss during peak campaign. | Immediate acknowledgement; escalate Director + TL; continue until contained. | Director incident owner |
+| **P0 - Crisis** | Confirmed active account/data compromise, major customer harm, complete site loss during peak campaign. | Immediate acknowledgement; escalate CEO + TL; continue until contained. | CEO & Incident Owner |
 | **P1 - High**   | Enquiry form unavailable, broad login failure, exposed secret, materially wrong live package price.     | Acknowledge ≤30 min in coverage hours; workaround within 4h where possible.  | TL                      |
-| **P2 - Normal** | Broken destination photo, limited feature failure, nonurgent content inconsistency.                     | Triage by next business day; plan in current/next sprint.                    | TL / OPS                |
-| **P3 - Low**    | Cosmetic polish, backlog suggestion, minor copy change.                                                 | Triage within 5 business days.                                               | OPS / backlog owner     |
+| **P2 - Normal** | Broken destination photo, limited feature failure, nonurgent content inconsistency.                     | Triage by next business day; plan in current/next sprint.                    | TL / OPS/GM                |
+| **P3 - Low**    | Cosmetic polish, backlog suggestion, minor copy change.                                                 | Triage within 5 business days.                                               | OPS/GM / backlog owner     |
 
 These are internal proposed targets rather than guaranteed availability; formally define after-hours contact coverage and customer-facing response hours.
 
 ## 2.2 Mandatory go-live gate
 
-- [ ] Business content and package prices approved by OPS.
+- [ ] Business content and package prices approved by OPS/GM.
 
 - [ ] Code change linked to issue and reviewed PR.
 
@@ -1093,13 +1077,13 @@ These are internal proposed targets rather than guaranteed availability; formall
 |-----------------------------------------------|-------------------------------------------------------|--------------------|-----------------------------------------------------------------|
 | **Public website: tripbyprism.co.in**         | Hostinger \`public_html\`, DNS records, GitHub source | TL                 | Known domain; live deployment not independently audited         |
 | **Source code and issue tracking**            | GitHub aryansingh47/Prism                             | TL                 | Public main structure verified 18 Nov 2026 \[E1\]               |
-| **Customer enquiry form and staff dashboard** | PHP application / MySQL (if installed)                | OPS + TL           | Implementation requires deployment confirmation                 |
+| **Customer enquiry form and staff dashboard** | PHP application / MySQL (if installed)                | OPS/GM + TL           | Implementation requires deployment confirmation                 |
 | **Customer identities and passwords**         | PHP authentication database (if installed)            | TL + SPC           | Requires security review and production check                   |
-| **Company mailbox and aliases**               | Hostinger Email                                       | OPS + TL           | Email reported as created; mail ownership/alerts unverified     |
+| **Company mailbox and aliases**               | Hostinger Email                                       | OPS/GM + TL           | Email reported as created; mail ownership/alerts unverified     |
 | **Domain / DNS / certificate**                | Hostinger registrar/DNS/host                          | TL                 | Record actual registrar and DNS operator in asset register      |
-| **Google Search Console**                     | Google property for domain                            | OPS + TL           | Previously configured; revalidate ownership and staff roles     |
-| **Analytics / marketing tools**               | Unconfirmed                                           | OPS + SPC          | Do not assume installed; record once approved                   |
-| **Travel packages, hotels and vendor rates**  | Approved supplier sheets / website content            | OPS                | Written indicative package inputs supplied; review dates needed |
+| **Google Search Console**                     | Google property for domain                            | OPS/GM + TL           | Previously configured; revalidate ownership and staff roles     |
+| **Analytics / marketing tools**               | Unconfirmed                                           | OPS/GM + SPC          | Record once approved                   |
+| **Travel packages, hotels and vendor rates**  | Approved supplier sheets / website content            | OPS/GM                | Written indicative package inputs supplied; review dates needed |
 | **SOP / access register / incidents**         | Restricted company workspace                          | TL / SPC           | Choose approved storage and retention                           |
 
 ## 3.2 Data handling matrix - initial proposed classification
@@ -1116,7 +1100,7 @@ These are internal proposed targets rather than guaranteed availability; formall
 
 # 4. Standard checklists, registers and forms
 
-## 4.1 Issue template (copy into GitHub Issue)
+## 4.1 Issue template
 
 • Title (imperative): \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
@@ -1236,48 +1220,16 @@ Asset ID \| Category \| Vendor \| System / URL \| Purpose \| Business owner \| T
 | Supplier package price changes after publication | High            | High       | OPS: indicative labels, quote validity and monthly content audit   |
 | Public repository contains a leaked API key      | Medium          | Critical   | TL: secret scanning, key rotation and restricted secrets           |
 | Enquiry notification email fails silently        | Medium          | High       | OPS/TL: monitor DB-to-mail mismatch and retry path                 |
-| Hostinger access held by only one person         | Medium          | High       | Director: name secondary recovery admin                            |
-
-# 5. Practical rollout plan - 30 / 60 / 90 days
-
-| **HORIZON**    | **WORK PACKAGE**                                                                                                                             | **OWNER**           | **EXIT CRITERIA**                                                        |
-|----------------|----------------------------------------------------------------------------------------------------------------------------------------------|---------------------|--------------------------------------------------------------------------|
-| **Days 1-7**   | Approve SOP owner, complete asset inventory, determine actual production architecture, grant MFA and establish restricted records workspace. | Director + TL       | Inventory and owners approved; no unknown production credentials.        |
-| **Days 1-14**  | Verify enquiry and account flows, access controls, backups, SMTP, DNS and source/deployment parity.                                          | TL + OPS            | End-to-end synthetic customer test passed or feature marked unavailable. |
-| **Days 15-30** | Implement release gate/branch protection, incident channel, daily checks, critical backup/restore test and initial rate-card review.         | TL + DEV + OPS      | First approved release log and restore evidence.                         |
-| **Days 31-60** | Implement monitoring and alerts, automated checks, access audit, vendor register, formal data inventory and retention/legal review.          | TL + SPC            | Scorecard and privacy action plan approved.                              |
-| **Days 61-90** | Conduct SUS study, run incident tabletop, test staff handoffs, patch backlog, conduct formal management review.                              | OPS + TL + Director | Quarterly review and next-quarter milestones set.                        |
-
-## 5.1 Open approvals before the manual becomes enforceable
-
-- [ ] Assign named Director, Technology Lead, OPS, SPC and backup incident contact.
-
-- [ ] Approve which GitHub repository/organisation is canonical and whether public/private code is acceptable.
-
-- [ ] Verify whether customer accounts, MySQL backend and staff view are actually live; record production SHA.
-
-- [ ] Approve business-hour coverage and SLA targets for enquiries and incidents.
-
-- [ ] Approve backup RTO/RPO, off-provider backup location, restore owner and cost.
-
-- [ ] Approve legal retention schedule, privacy notice, consent/marketing flows and DPDP/CERT-In interpretations with counsel.
-
-- [ ] Determine if Hostinger plan supports required PHP, database, cron, SSH, email and automatic backup features.
-
-- [ ] Approve vendor/service catalogue, renewal owner and limits on annual spend.
-
-- [ ] Select restricted company repository for incidents, PII and HR-sensitive information.
-
-- [ ] Approve review/exception process and set v1.0 effective date.
+| Hostinger access held by only one person         | Medium          | High       | CEO: name secondary recovery admin                            |
 
 # 6. Reference framework and source mapping
 
-Source references have two levels: A = Prism-provided course material (methodological source), E = independently checked external primary technical or regulatory guidance. The ENGR 301 sources are educational notes and not Prism company policy; this SOP converts their principles into proposed controls.
+Source references have two levels: A = Prism-provided material (methodological source), E = independently checked external primary technical or regulatory guidance. 
 
 | **ID**  | **REFERENCE**                                                                                                                                                                                                                                                        | **HOW USED**                                                                                                                                        |
 |---------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **A1**  | L2 Bodies of Knowledge.pdf; ENGR 301 Lecture Notes: Bodies of Knowledge, pp. 1-6.                                                                                                                                                                                    | Framework vs methodology, process groups, knowledge areas, scope/time/cost/quality, stakeholder and risk controls.                                  |
-| **A2**  | L3 Course Methodology.pdf; ENGR 301 Course Methodology, pp. 1-6, last updated 29 Feb 2024.                                                                                                                                                                           | Issue-first workflow, one-purpose tasks, feature branches, review, conventional commits, CI, retrospectives and risk management; adapted to GitHub. |
+| **A1**  | Private Notes.                                                                                                                                                                                   | Framework vs methodology, process groups, knowledge areas, scope/time/cost/quality, stakeholder and risk controls.                                  |
+| **A2**  | Private Notes.                                                                                                                                                                         | Issue-first workflow, one-purpose tasks, feature branches, review, conventional commits, CI, retrospectives and risk management; adapted to GitHub. |
 | **E1**  | https://github.com/aryansingh47/Prism                                                                                                                                                                                                                                | Public repository listing, checked 18 Nov 2026; static files visible in main. Does not attest live Hostinger PHP configuration.                     |
 | **E2**  | https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets                                                                                                                            | GitHub ruleset capabilities subject to repository/account settings.                                                                                 |
 | **E3**  | https://csrc.nist.gov/pubs/sp/800/218/final                                                                                                                                                                                                                          | NIST SSDF v1.1; secure development practices.                                                                                                       |
@@ -1289,8 +1241,7 @@ Source references have two levels: A = Prism-provided course material (methodolo
 | **E9**  | https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf and https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf                                                                                        | DPDP Act phased commencement notification G.S.R. 843(E) and DPDP Rules 2025 G.S.R. 846(E), both dated 13 Nov 2025.                                  |
 | **E10** | https://csrc.nist.gov/pubs/sp/800/218/a/final                                                                                                                                                                                                                        | NIST SSDF AI and dual-use generative AI community profile.                                                                                          |
 
-| **Legal status** Indian cybersecurity and personal-data requirements depend on service classification, applicable incident type and phased legal commencement. Obtain current legal advice before adopting retention deadlines, regulator notification procedures or customer-facing privacy policies. This manual is not a legal opinion. |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ **Legal status:** This manual is not a legal opinion. 
 
 # 7. Approval and revision history
 
