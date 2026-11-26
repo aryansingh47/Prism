@@ -1,6 +1,6 @@
 # 04 · Participant Task Sheet — PRISM
 
-**Study PRISM-UX-001** · Participant code: `P___` · Website: `[CONFIRMED TEST URL]`
+**Study PRISM-UX-001** · Participant code: `P___` · Website: `tripbyprism.co.in`
 
 ## Before you begin
 
