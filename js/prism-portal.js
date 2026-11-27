@@ -164,11 +164,20 @@
   async function initialiseStaff() {
     const status=staffRoot.querySelector('[data-staff-message]');
     const list=document.getElementById('prism-staff-list');
+    const qrLink=node('a','button button--outline','Employee QR Generator');
+    qrLink.href='staff-qr.php';
+    qrLink.hidden=true;
+    qrLink.style.display='none';
+    (staffRoot.querySelector('.prism-staff-tools') || staffRoot).append(qrLink);
     async function refresh() {
+      qrLink.hidden=true;
+      qrLink.style.display='none';
       list.replaceChildren(node('p','', 'Loading enquiries…'));
       try {
-        const state=await loadSession();
+        const state=await loadSession(true);
         if (!state.user?.staff) throw new Error('Staff access requires a verified, authorised Prism account.');
+        qrLink.hidden=false;
+        qrLink.style.removeProperty('display');
         const res=await fetch(endpoint('admin'),{credentials:'same-origin',cache:'no-store'});
         const data=await res.json();
         if (!res.ok || !data.ok) throw new Error(data.message || 'Unable to load staff records.');
